@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Innovación Móvil — Cables y Adaptadores de Corriente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+/* ============================================
+   Innovación Móvil — estilos.css
+   ============================================ */
+
+:root {
+  --bg:        #050c17;
+  --bg2:       #080f1e;
+  --bg3:       #0d1628;
+  --surface:   #0f1d30;
+  --surface2:  #162236;
+  --border:    rgba(0,200,255,0.12);
+  --cyan:      #00d4ff;
+  --cyan2:     #00ffcc;
+  --purple:    #7b4fff;
+  --orange:    #ff7b00;
+  --green:     #00e676;
+  --yellow:    #f0c040;
+  --text:      #e8f4ff;
+  --text-muted:#7a9ab8;
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow:    0 8px 40px rgba(0,212,255,0.08);
+  --glow-cyan: 0 0 30px rgba(0,212,255,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+/* ---- NAVBAR ---- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 4%;
+  background: rgba(5,12,23,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 1.1rem; color: var(--text); }
+.brand-icon { font-size: 1.4rem; color: var(--cyan); filter: drop-shadow(0 0 6px var(--cyan)); }
+.brand-text strong { color: var(--cyan); }
+.nav-links { display: flex; gap: 2rem; margin-left: auto; }
+.nav-links a { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted); transition: color 0.2s; text-transform: uppercase; }
+.nav-links a:hover { color: var(--cyan); }
+.nav-cta {
+  margin-left: 1rem; padding: 8px 20px; background: transparent;
+  border: 1.5px solid var(--cyan); color: var(--cyan);
+  font-family: var(--font-head); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; border-radius: 50px; cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { background: var(--cyan); color: var(--bg); box-shadow: var(--glow-cyan); }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: transparent; border: none; cursor: pointer; padding: 6px; margin-left: 0.5rem; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cyan); border-radius: 2px; transition: all 0.3s; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- HERO ---- */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 4% 4rem;
+  overflow: hidden;
+  gap: 4rem;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px; z-index: 0;
+}
+.hero-glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+.hero-glow--1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,212,255,0.18), transparent 70%); top: -100px; left: -100px; }
+.hero-glow--2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(123,79,255,0.18), transparent 70%); bottom: -80px; right: 5%; }
+.hero-content { position: relative; z-index: 1; flex: 1; max-width: 580px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.2rem; }
+.dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 8px var(--cyan); animation: pulse 1.8s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+.hero-title { font-family: var(--font-head); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.2rem; }
+.gradient-text { background: linear-gradient(90deg, var(--cyan), var(--cyan2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-desc { font-size: 1rem; color: var(--text-muted); max-width: 480px; margin-bottom: 2rem; font-weight: 300; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 14px 28px; border-radius: 50px; transition: all 0.25s; cursor: pointer; border: none; }
+.btn--primary { background: linear-gradient(135deg, var(--cyan), var(--cyan2)); color: var(--bg); box-shadow: 0 4px 25px rgba(0,212,255,0.35); }
+.btn--primary:hover { transform: translateY(-3px); box-shadow: 0 8px 35px rgba(0,212,255,0.5); }
+.btn--ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); }
+.btn--ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+.hero-stats { display: flex; gap: 1.5rem; align-items: center; }
+.stat { text-align: center; }
+.stat-num { display: block; font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--cyan); line-height: 1; }
+.stat-label { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.04em; }
+.stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+/* ---- HERO VISUAL ---- */
+.hero-visual { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; min-height: 400px; }
+.cable-mockup {
+  position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+.cable-plug {
+  width: 80px; height: 48px;
+  background: linear-gradient(160deg, #1a2d45, #0a1520);
+  border-radius: 12px; border: 2px solid rgba(0,212,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--glow-cyan);
+}
+.cable-plug i { font-size: 1.6rem; color: var(--cyan); filter: drop-shadow(0 0 8px var(--cyan)); }
+.cable-line {
+  width: 4px; height: 120px;
+  background: linear-gradient(180deg, var(--cyan), var(--cyan2));
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(0,212,255,0.5);
+  animation: cableFlow 2s ease-in-out infinite;
+}
+@keyframes cableFlow {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 8px rgba(0,212,255,0.4); }
+  50% { opacity: 1; box-shadow: 0 0 20px rgba(0,212,255,0.8); }
+}
+.cable-adapter {
+  width: 70px; height: 80px;
+  background: linear-gradient(160deg, #1a2d45, #0a1520);
+  border-radius: 16px; border: 2px solid rgba(0,212,255,0.25);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  box-shadow: 0 0 0 4px rgba(0,212,255,0.05), var(--glow-cyan);
+}
+.cable-adapter .watt-label {
+  font-family: var(--font-head); font-size: 0.65rem; color: var(--cyan2); letter-spacing: 0.1em;
+}
+.cable-adapter .watt-num {
+  font-family: var(--font-head); font-size: 1.1rem; font-weight: 800; color: var(--cyan);
+  filter: drop-shadow(0 0 6px var(--cyan));
+}
+.orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(0,212,255,0.1); animation: spin linear infinite; }
+.orbit--1 { width: 300px; height: 300px; animation-duration: 12s; }
+.orbit--2 { width: 440px; height: 440px; animation-duration: 20s; animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- SECTIONS ---- */
+.section { padding: 6rem 4%; }
+.section--dark { background: var(--bg2); }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); padding: 4px 14px; border-radius: 50px; margin-bottom: 1rem; }
+.section-header h2 { font-family: var(--font-head); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 0.8rem; }
+.section-header p { color: var(--text-muted); max-width: 520px; margin: 0 auto; font-weight: 300; }
+
+/* ---- OHM LAW ---- */
+.ohm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+.ohm-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.ohm-card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.35); box-shadow: var(--shadow); }
+.ohm-card--featured {
+  border-color: rgba(0,212,255,0.4);
+  background: linear-gradient(145deg, var(--surface2), var(--surface));
+  grid-column: span 1;
+}
+.ohm-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.ohm-icon--v { color: var(--cyan); filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); }
+.ohm-icon--a { color: var(--green); filter: drop-shadow(0 0 10px rgba(0,230,118,0.5)); }
+.ohm-icon--w { color: var(--orange); filter: drop-shadow(0 0 10px rgba(255,123,0,0.5)); }
+.ohm-card h3 { font-family: var(--font-head); font-size: 1.2rem; font-weight: 900; margin-bottom: 0.4rem; }
+.ohm-card .ohm-unit { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.8rem; }
+.ohm-card p { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; }
+.formula-box {
+  background: var(--surface2);
+  border: 1px solid rgba(0,212,255,0.3);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.formula-box .formula-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+.formula { font-family: var(--font-head); font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; color: var(--text); display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.formula .var-v { color: var(--cyan); filter: drop-shadow(0 0 8px rgba(0,212,255,0.5)); }
+.formula .var-a { color: var(--green); filter: drop-shadow(0 0 8px rgba(0,230,118,0.5)); }
+.formula .var-w { color: var(--orange); filter: drop-shadow(0 0 8px rgba(255,123,0,0.5)); }
+.formula .op { color: var(--text-muted); font-size: 1.8rem; }
+.formula-examples {
+  display: flex; gap: 2rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;
+}
+.formula-ex {
+  font-family: var(--font-head); font-size: 0.82rem; color: var(--text-muted);
+  background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15);
+  padding: 8px 16px; border-radius: 8px;
+}
+.formula-ex .result { color: var(--orange); font-weight: 800; }
+
+/* ---- CHARGING LEVELS ---- */
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.level-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.level-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.level-card--slow::before { background: linear-gradient(90deg, #4a9eff, #0060cc); }
+.level-card--slow { border-color: rgba(74,158,255,0.3); }
+.level-card--normal::before { background: linear-gradient(90deg, var(--cyan), var(--cyan2)); }
+.level-card--normal { border-color: rgba(0,212,255,0.4); }
+.level-card--fast::before { background: linear-gradient(90deg, var(--orange), #ff4500); }
+.level-card--fast { border-color: rgba(255,123,0,0.3); }
+.level-watt {
+  font-family: var(--font-head); font-size: 2.8rem; font-weight: 900;
+  line-height: 1; margin-bottom: 0.3rem;
+}
+.level-card--slow .level-watt { color: #4a9eff; }
+.level-card--normal .level-watt { color: var(--cyan); filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); }
+.level-card--fast .level-watt { color: var(--orange); filter: drop-shadow(0 0 10px rgba(255,123,0,0.5)); }
+.level-name { font-family: var(--font-head); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.5rem; }
+.level-specs { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.level-spec { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 6px; }
+.level-spec i { color: var(--cyan); font-size: 0.7rem; }
+.level-card--slow .level-spec i { color: #4a9eff; }
+.level-card--fast .level-spec i { color: var(--orange); }
+.level-devices { display: flex; flex-direction: column; gap: 0.4rem; }
+.level-device { font-size: 0.75rem; color: var(--text-muted); background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; }
+.level-card--slow .level-device { background: rgba(74,158,255,0.05); border-color: rgba(74,158,255,0.15); }
+.level-card--fast .level-device { background: rgba(255,123,0,0.05); border-color: rgba(255,123,0,0.15); }
+.level-time {
+  font-family: var(--font-head); font-size: 0.9rem; font-weight: 700;
+  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.level-card--slow .level-time { color: #4a9eff; }
+.level-card--normal .level-time { color: var(--cyan); }
+.level-card--fast .level-time { color: var(--orange); }
+
+/* ---- CABLES ---- */
+.cables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.cable-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.cable-card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.35); box-shadow: var(--shadow); }
+.cable-card--featured { border-color: rgba(0,212,255,0.4); background: linear-gradient(145deg, var(--surface2), var(--surface)); }
+.cable-badge {
+  position: absolute; top: -12px; left: 20px;
+  background: linear-gradient(90deg, var(--cyan), var(--cyan2));
+  color: var(--bg); font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.1em; padding: 3px 12px; border-radius: 50px; text-transform: uppercase;
+}
+.cable-visual {
+  width: 60px; height: 60px;
+  background: linear-gradient(145deg, var(--surface2), var(--bg));
+  border-radius: 14px; border: 1.5px solid rgba(0,212,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem; font-size: 1.6rem;
+}
+.cable-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.cable-type { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--cyan); text-transform: uppercase; margin-bottom: 0.8rem; }
+.cable-card p { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; margin-bottom: 1rem; }
+.cable-pill { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; color: var(--cyan2); background: rgba(0,255,204,0.07); border: 1px solid rgba(0,255,204,0.2); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; }
+.cable-specs { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1rem; }
+.cable-spec-item { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.cable-spec-item i { color: var(--cyan2); font-size: 0.7rem; }
+
+/* ---- COMPARE TABLE ---- */
+.table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.compare-table th { background: var(--surface2); font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); padding: 1rem 1.2rem; text-align: center; border-bottom: 1px solid var(--border); }
+.compare-table th:first-child { text-align: left; color: var(--text-muted); }
+.compare-table td { padding: 0.9rem 1.2rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-muted); font-size: 0.82rem; }
+.compare-table td:first-child { text-align: left; color: var(--text); }
+.compare-table tr:hover td { background: rgba(0,212,255,0.03); }
+.compare-table tr:last-child td { border-bottom: none; }
+.yes  { color: #00ffcc !important; font-size: 1rem !important; }
+.no   { color: #ff5555 !important; font-size: 1rem !important; }
+.half { color: #f0c040 !important; font-size: 0.9rem !important; }
+.table-legend { text-align: center; margin-top: 1.2rem; font-size: 0.82rem; color: var(--text-muted); display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; }
+
+/* ---- FAQ ---- */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.8rem; }
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
+.faq-item.open { border-color: rgba(0,212,255,0.35); }
+.faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; background: transparent; border: none; color: var(--text); font-family: var(--font-head); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; text-align: left; gap: 1rem; }
+.faq-q i { color: var(--cyan); font-size: 0.75rem; transition: transform 0.3s; flex-shrink: 0; }
+.faq-item.open .faq-q i { transform: rotate(180deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+.faq-a p { padding: 0 1.5rem 1.2rem; font-size: 0.87rem; color: var(--text-muted); font-weight: 300; line-height: 1.8; }
+.faq-a strong { color: var(--text); font-weight: 600; }
+.faq-item.open .faq-a { max-height: 300px; }
+
+/* ---- FOOTER ---- */
+.footer { position: relative; background: var(--bg2); border-top: 1px solid var(--border); padding: 4rem 4% 2rem; overflow: hidden; }
+.footer-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 200px; background: radial-gradient(ellipse, rgba(0,212,255,0.06), transparent 70%); }
+.footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3rem; position: relative; }
+.footer-brand .brand-text { font-family: var(--font-head); font-size: 1.1rem; }
+.footer-brand p { color: var(--text-muted); font-size: 0.83rem; margin-top: 0.5rem; font-weight: 300; }
+.footer-links h5 { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; margin-bottom: 1rem; }
+.footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+
+/* ---- ANIMATIONS ---- */
+.hero-content, .hero-visual,
+.ohm-card, .cable-card, .level-card, .faq-item {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.visible { opacity: 1 !important; transform: translateY(0) !important; }
+.hero-content { transition-delay: 0.1s; }
+.hero-visual  { transition-delay: 0.3s; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1024px) {
+  .footer-content { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .navbar { padding: 0.8rem 4%; gap: 0.8rem; flex-wrap: wrap; }
+  .nav-toggle { display: flex; margin-left: auto; }
+  .nav-cta { order: 3; font-size: 0.68rem; padding: 7px 14px; }
+  .nav-links { display: none; flex-direction: column; width: 100%; order: 4; gap: 0; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-top: 0.3rem; }
+  .nav-links.open { display: flex; }
+  .nav-links li a { display: block; padding: 0.85rem 1.2rem; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .nav-links li:last-child a { border-bottom: none; }
+  .hero { flex-direction: column; padding-top: 3.5rem; min-height: auto; gap: 2rem; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  .hero-visual { min-height: 280px; }
+  .ohm-grid { grid-template-columns: 1fr; }
+  .levels-grid { grid-template-columns: 1fr; }
+  .cables-grid { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+  .section { padding: 4rem 4%; }
+}
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem; }
+  .section-header h2 { font-size: 1.6rem; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">Innovación<strong>Móvil</strong></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html">Home</a></li>
+      <li><a href="#ohm">Ley de Ohm</a></li>
+      <li><a href="#niveles">Niveles</a></li>
+      <li><a href="#cables">Cables</a></li>
+      <li><a href="#comparativa">Comparativa</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button class="nav-cta">Ver Cables</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow hero-glow--1"></div>
+    <div class="hero-glow hero-glow--2"></div>
+    <div class="hero-content">
+      <p class="hero-tag"><span class="dot"></span> Tecnología de Carga</p>
+      <h1 class="hero-title">
+        Cables y<br/>
+        <span class="gradient-text">Adaptadores</span><br/>
+        de Corriente
+      </h1>
+      <p class="hero-desc">
+        Comprende la Ley de Ohm, los niveles de carga y los tipos de cable para asesorar mejor a tus clientes y elevar tus ventas.
+      </p>
+      <div class="hero-actions">
+        <a href="#cables" class="btn btn--primary">Ver Cables <i class="fas fa-arrow-right"></i></a>
+        <a href="#ohm" class="btn btn--ghost">Ley de Ohm</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Tipos de cable</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Niveles de carga</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">W=VxA</span><span class="stat-label">Fórmula clave</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="cable-mockup">
+        <div class="cable-plug">
+          <i class="fas fa-plug"></i>
+        </div>
+        <div class="cable-line"></div>
+        <div class="cable-adapter">
+          <span class="watt-label">WATTS</span>
+          <span class="watt-num">20W</span>
+        </div>
+      </div>
+      <div class="orbit orbit--1"></div>
+      <div class="orbit orbit--2"></div>
+    </div>
+  </section>
+
+  <!-- ===== LEY DE OHM ===== -->
+  <section class="section" id="ohm">
+    <div class="section-header">
+      <span class="section-tag">Fundamentos</span>
+      <h2>Ley de <span class="gradient-text">Ohm</span></h2>
+      <p>Los tres conceptos fundamentales que determinan la velocidad y potencia de carga de cualquier dispositivo.</p>
+    </div>
+
+    <div class="ohm-grid">
+      <div class="ohm-card">
+        <div class="ohm-icon ohm-icon--v"><i class="fas fa-bolt"></i></div>
+        <h3>Voltaje</h3>
+        <p class="ohm-unit">Volts (V)</p>
+        <p>Es la <strong>fuerza o velocidad</strong> con la que se mueve la energía eléctrica. Determina qué tan rápido "empuja" la corriente hacia el dispositivo.</p>
+      </div>
+      <div class="ohm-card ohm-card--featured">
+        <div class="ohm-icon ohm-icon--a"><i class="fas fa-wave-square"></i></div>
+        <h3>Amperaje</h3>
+        <p class="ohm-unit">Amperes (A)</p>
+        <p>Es la <strong>cantidad de electrones</strong> que circulan en un conductor. Cuánta energía pasa de un punto inicial a un punto final en el circuito.</p>
+      </div>
+      <div class="ohm-card">
+        <div class="ohm-icon ohm-icon--w"><i class="fas fa-fire"></i></div>
+        <h3>Watts</h3>
+        <p class="ohm-unit">Watts (W)</p>
+        <p>Es la medida de <strong>potencia eléctrica</strong>. Establece a qué velocidad puede transformarse la energía eléctrica. Se obtiene multiplicando Voltaje × Amperaje.</p>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <p class="formula-title">Fórmula de Potencia</p>
+      <div class="formula">
+        <span class="var-w">W</span>
+        <span class="op">=</span>
+        <span class="var-v">V</span>
+        <span class="op">×</span>
+        <span class="var-a">A</span>
+      </div>
+      <div class="formula-examples">
+        <div class="formula-ex">5V × 1A = <span class="result">5W</span></div>
+        <div class="formula-ex">5V × 2A = <span class="result">10W</span></div>
+        <div class="formula-ex">5V × 3A = <span class="result">15W</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NIVELES DE CARGA ===== -->
+  <section class="section section--dark" id="niveles">
+    <div class="section-header">
+      <span class="section-tag">Clasificación</span>
+      <h2>Niveles de <span class="gradient-text">Carga</span></h2>
+      <p>Los watts determinan la velocidad de carga. A mayor potencia, menor tiempo de espera para el cliente.</p>
+    </div>
+    <div class="levels-grid">
+
+      <div class="level-card level-card--slow">
+        <div class="level-watt">5W</div>
+        <div class="level-name">Carga Lenta</div>
+        <div class="level-specs">
+          <div class="level-spec"><i class="fas fa-bolt"></i> 5 Volts</div>
+          <div class="level-spec"><i class="fas fa-wave-square"></i> 1 Ampere</div>
+        </div>
+        <div class="level-devices">
+          <div class="level-device"><i class="fas fa-mobile-alt"></i> Móvil gama baja</div>
+          <div class="level-device"><i class="fas fa-headphones"></i> Audífonos inalámbricos</div>
+        </div>
+        <div class="level-time"><i class="fas fa-clock"></i> 2 horas o más</div>
+      </div>
+
+      <div class="level-card level-card--normal">
+        <div class="level-watt">10W</div>
+        <div class="level-name">Carga Normal</div>
+        <div class="level-specs">
+          <div class="level-spec"><i class="fas fa-bolt"></i> 10 Volts</div>
+          <div class="level-spec"><i class="fas fa-wave-square"></i> 2 Amperes</div>
+        </div>
+        <div class="level-devices">
+          <div class="level-device"><i class="fas fa-mobile-alt"></i> Móvil gama media</div>
+          <div class="level-device"><i class="fas fa-headphones"></i> Audífonos</div>
+          <div class="level-device"><i class="fas fa-volume-up"></i> Bócinas</div>
+          <div class="level-device"><i class="fas fa-clock"></i> Reloj inteligente</div>
+        </div>
+        <div class="level-time"><i class="fas fa-clock"></i> ~1 hora</div>
+      </div>
+
+      <div class="level-card level-card--fast">
+        <div class="level-watt">15W+</div>
+        <div class="level-name">Carga Rápida</div>
+        <div class="level-specs">
+          <div class="level-spec"><i class="fas fa-bolt"></i> 15 Volts o más</div>
+          <div class="level-spec"><i class="fas fa-wave-square"></i> 3A – 5A</div>
+        </div>
+        <div class="level-devices">
+          <div class="level-device"><i class="fas fa-mobile-alt"></i> Móvil gama alta</div>
+          <div class="level-device"><i class="fas fa-tablet-alt"></i> Tabletas</div>
+          <div class="level-device"><i class="fas fa-laptop"></i> Computadoras</div>
+        </div>
+        <div class="level-time"><i class="fas fa-clock"></i> ~30 minutos</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== TIPOS DE CABLE ===== -->
+  <section class="section" id="cables">
+    <div class="section-header">
+      <span class="section-tag">Catálogo</span>
+      <h2>Tipos de <span class="gradient-text">Cable</span></h2>
+      <p>Conoce las diferencias entre los conectores para recomendar el cable correcto a cada cliente.</p>
+    </div>
+    <div class="cables-grid">
+
+      <div class="cable-card">
+        <div class="cable-badge">Más Popular</div>
+        <div class="cable-visual" style="color: var(--cyan);">
+          <i class="fas fa-plug" style="font-size:1.8rem;"></i>
+        </div>
+        <h3>Cable Micro USB</h3>
+        <p class="cable-type">TIPO B · V8</p>
+        <p>El conector más utilizado en equipos Android de generaciones anteriores. Tiene una forma ligeramente asimétrica y solo puede insertarse en una dirección.</p>
+        <div class="cable-specs">
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Compatible con equipos Android clásicos</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Hasta 2A de corriente</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Muy común y económico</div>
+        </div>
+        <div class="cable-pill" style="margin-top:1rem;">tipo b · v8</div>
+      </div>
+
+      <div class="cable-card cable-card--featured">
+        <div class="cable-visual" style="color: var(--orange);">
+          <i class="fas fa-mobile-screen-button" style="font-size:1.8rem;"></i>
+        </div>
+        <h3>Cable Lightning</h3>
+        <p class="cable-type">APPLE · IPHONE</p>
+        <p>Conector exclusivo de Apple para iPhone e iPad. Más pequeño y reversible que el Micro USB. Usado desde iPhone 5 hasta modelos anteriores al USB-C.</p>
+        <div class="cable-specs">
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Exclusivo Apple iPhone / iPad</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Reversible (doble cara)</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Soporta carga rápida con adaptador</div>
+        </div>
+        <div class="cable-pill" style="margin-top:1rem;">lightning · apple</div>
+      </div>
+
+      <div class="cable-card">
+        <div class="cable-badge">Nuevo estándar</div>
+        <div class="cable-visual" style="color: var(--green);">
+          <i class="fas fa-usb" style="font-size:1.8rem;"></i>
+        </div>
+        <h3>Cable Tipo C</h3>
+        <p class="cable-type">USB-C · UNIVERSAL</p>
+        <p>El estándar actual de la industria. Conector ovalado completamente reversible. Compatible con Android modernos, iPad, MacBook y ahora iPhone 15 en adelante.</p>
+        <div class="cable-specs">
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Universal: Android, iPhone 15+, iPad, Mac</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Reversible — no hay dirección incorrecta</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> Soporta hasta 5A y carga rápida</div>
+          <div class="cable-spec-item"><i class="fas fa-check"></i> También transmite datos y video</div>
+        </div>
+        <div class="cable-pill" style="margin-top:1rem;">usb-c · universal</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== COMPARATIVA ===== -->
+  <section class="section section--dark" id="comparativa">
+    <div class="section-header">
+      <span class="section-tag">Análisis</span>
+      <h2>Tabla <span class="gradient-text">Comparativa</span></h2>
+      <p>Compara las características de cada cable y adaptador para elegir el correcto.</p>
+    </div>
+    <div class="table-wrapper">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Característica</th>
+            <th>Micro USB (V8)</th>
+            <th>Lightning</th>
+            <th>Tipo C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reversible</td>
+            <td class="no"><i class="fas fa-times"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+          </tr>
+          <tr>
+            <td>Carga rápida</td>
+            <td class="half"><i class="fas fa-circle-half-stroke"></i></td>
+            <td class="half"><i class="fas fa-circle-half-stroke"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+          </tr>
+          <tr>
+            <td>Transmisión de datos</td>
+            <td class="half"><i class="fas fa-circle-half-stroke"></i></td>
+            <td class="half"><i class="fas fa-circle-half-stroke"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+          </tr>
+          <tr>
+            <td>Salida de video</td>
+            <td class="no"><i class="fas fa-times"></i></td>
+            <td class="no"><i class="fas fa-times"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+          </tr>
+          <tr>
+            <td>Compatibilidad Apple</td>
+            <td class="no"><i class="fas fa-times"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+            <td class="half"><i class="fas fa-circle-half-stroke"></i></td>
+          </tr>
+          <tr>
+            <td>Compatibilidad Android</td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+            <td class="no"><i class="fas fa-times"></i></td>
+            <td class="yes"><i class="fas fa-check"></i></td>
+          </tr>
+          <tr>
+            <td>Amperaje máximo</td>
+            <td>2A</td>
+            <td>2A</td>
+            <td>5A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-legend">
+      <i class="fas fa-check" style="color:var(--cyan)"></i>&nbsp;Sí &nbsp;&nbsp;&nbsp;
+      <i class="fas fa-times" style="color:#ff4d4d"></i>&nbsp;No &nbsp;&nbsp;&nbsp;
+      <i class="fas fa-circle-half-stroke" style="color:#f0a500"></i>&nbsp;Parcial
+    </p>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section" id="faq">
+    <div class="section-header">
+      <span class="section-tag">Preguntas frecuentes</span>
+      <h2>Resuelve tus <span class="gradient-text">Dudas</span></h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q">¿Un cargador de más watts puede dañar el teléfono? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-a">
+          <p>No. El dispositivo regula cuánta energía toma del cargador. Si conectas un cargador de 65W a un teléfono que solo acepta 15W, el teléfono solo tomará los 15W que necesita. El <strong>voltaje debe ser compatible</strong>, pero el amperaje lo decide el propio dispositivo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Cuál es la diferencia entre un cable barato y uno de calidad? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-a">
+          <p>Los cables de baja calidad usan menos hilos de cobre internos, lo que limita el amperaje que pueden transportar. Esto resulta en <strong>carga más lenta</strong>, mayor calentamiento y desgaste más rápido del conector. Un cable certificado garantiza el amperaje anunciado y protege la batería a largo plazo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿El iPhone 15 ya usa Tipo C? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-a">
+          <p>Sí. A partir del <strong>iPhone 15</strong>, Apple migró al estándar USB-C, abandonando el conector Lightning. Los modelos anteriores (iPhone 14 y menores) siguen usando Lightning. Esto es importante para recomendar el cable correcto al cliente según su modelo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Puedo usar un adaptador de 5V para cargar rápido? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-a">
+          <p>No. La carga rápida requiere adaptadores que soporten <strong>voltajes más altos (10V–15V o más)</strong> y protocolos especiales como Qualcomm Quick Charge o USB Power Delivery. Un adaptador de 5V, aunque tenga 3A, solo entregará 15W y no activará la carga rápida en dispositivos compatibles.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Por qué mi celular carga lento aunque tenga cargador rápido? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-a">
+          <p>Puede ser por <strong>tres razones</strong>: 1) El cable no soporta el amperaje requerido. 2) El teléfono no es compatible con el protocolo de carga rápida del adaptador. 3) La batería está al 80% o más (muchos dispositivos reducen la velocidad automáticamente para proteger la batería).</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">Innovación<strong> Móvil</strong></span>
+        <p>La mejor protección y accesorios para cada dispositivo.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Navegación</h5>
+        <a href="#ohm">Ley de Ohm</a>
+        <a href="#niveles">Niveles de carga</a>
+        <a href="#cables">Tipos de cable</a>
+        <a href="#comparativa">Comparativa</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-links">
+        <h5>Recursos</h5>
+        <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank">Material de apoyo</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Innovación Móvil — Todos los derechos reservados. | Cables y Adaptadores de Corriente.</p>
+    </div>
+  </footer>
+
+  <script>
+// ---- FAQ Accordion ----
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// ---- Intersection Observer ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => { entry.target.classList.add('visible'); }, entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+function addStaggerDelay(selector, baseDelay = 80) {
+  document.querySelectorAll(selector).forEach((el, i) => { el.dataset.delay = i * baseDelay; });
+}
+addStaggerDelay('.ohm-card', 80);
+addStaggerDelay('.cable-card', 100);
+addStaggerDelay('.level-card', 90);
+addStaggerDelay('.faq-item', 60);
+
+document.querySelectorAll('.hero-content, .hero-visual, .ohm-card, .cable-card, .level-card, .faq-item')
+  .forEach(el => observer.observe(el));
+
+// ---- Active nav link ----
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.style.color = '';
+        if (link.getAttribute('href') === '#' + entry.target.id) link.style.color = 'var(--cyan)';
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => navObserver.observe(s));
+
+// ---- Navbar shrink ----
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  navbar.style.padding = window.scrollY > 60 ? '0.6rem 4%' : '1rem 4%';
+});
+
+// ---- CTA scroll ----
+document.querySelector('.nav-cta').addEventListener('click', () => {
+  document.querySelector('#cables').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ---- Hamburger ----
+const navToggle = document.getElementById('navToggle');
+const navLinksList = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinksList.classList.toggle('open');
+});
+  </script>
+</body>
+</html>

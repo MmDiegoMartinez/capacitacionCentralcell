@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Innovación Móvil — Uso Correcto de la Máquina de Hidrogel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+:root {
+  --bg:        #050c17;
+  --bg2:       #080f1e;
+  --bg3:       #0d1628;
+  --surface:   #0f1d30;
+  --surface2:  #162236;
+  --border:    rgba(0,200,255,0.12);
+  --cyan:      #00d4ff;
+  --cyan2:     #00ffcc;
+  --purple:    #7b4fff;
+  --orange:    #ff7b00;
+  --green:     #00e676;
+  --red:       #ff4444;
+  --yellow:    #f0c040;
+  --text:      #e8f4ff;
+  --text-muted:#7a9ab8;
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow:    0 8px 40px rgba(0,212,255,0.08);
+  --glow-cyan: 0 0 30px rgba(0,212,255,0.35);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+/* ---- NAVBAR ---- */
+.navbar {
+  position: sticky; top: 0; z-index: 900;
+  display: flex; align-items: center; gap: 2rem;
+  padding: 1rem 4%;
+  background: rgba(5,12,23,0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.3s;
+}
+.nav-brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 1.1rem; }
+.brand-icon { font-size: 1.4rem; color: var(--cyan); filter: drop-shadow(0 0 6px var(--cyan)); }
+.brand-text strong { color: var(--cyan); }
+.nav-links { display: flex; gap: 2rem; margin-left: auto; }
+.nav-links a { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted); transition: color 0.2s; text-transform: uppercase; }
+.nav-links a:hover { color: var(--cyan); }
+.nav-cta { margin-left: 1rem; padding: 8px 20px; background: transparent; border: 1.5px solid var(--cyan); color: var(--cyan); font-family: var(--font-head); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; border-radius: 50px; cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s; }
+.nav-cta:hover { background: var(--cyan); color: var(--bg); box-shadow: var(--glow-cyan); }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: transparent; border: none; cursor: pointer; padding: 6px; margin-left: 0.5rem; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cyan); border-radius: 2px; transition: all 0.3s; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- HERO ---- */
+.hero {
+  position: relative; min-height: 92vh;
+  display: flex; align-items: center;
+  padding: 6rem 4% 4rem; overflow: hidden; gap: 4rem;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px; z-index: 0;
+}
+.hero-glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+.hero-glow--1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,212,255,0.18), transparent 70%); top: -100px; left: -100px; }
+.hero-glow--2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(123,79,255,0.18), transparent 70%); bottom: -80px; right: 5%; }
+.hero-content { position: relative; z-index: 1; flex: 1; max-width: 580px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.2rem; }
+.dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 8px var(--cyan); animation: pulse 1.8s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+.hero-title { font-family: var(--font-head); font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.2rem; }
+.gradient-text { background: linear-gradient(90deg, var(--cyan), var(--cyan2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-desc { font-size: 1rem; color: var(--text-muted); max-width: 480px; margin-bottom: 2rem; font-weight: 300; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 14px 28px; border-radius: 50px; transition: all 0.25s; cursor: pointer; border: none; }
+.btn--primary { background: linear-gradient(135deg, var(--cyan), var(--cyan2)); color: var(--bg); box-shadow: 0 4px 25px rgba(0,212,255,0.35); }
+.btn--primary:hover { transform: translateY(-3px); box-shadow: 0 8px 35px rgba(0,212,255,0.5); }
+.btn--ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); }
+.btn--ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+.hero-stats { display: flex; gap: 1.5rem; align-items: center; }
+.stat { text-align: center; }
+.stat-num { display: block; font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--cyan); line-height: 1; }
+.stat-label { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.04em; }
+.stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+/* ---- HERO VISUAL: Machine mockup ---- */
+.hero-visual { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; min-height: 400px; }
+.machine-mockup {
+  position: relative; z-index: 2;
+  width: 180px; height: 280px;
+  background: linear-gradient(160deg, #1a2d45, #0a1520);
+  border-radius: 22px; border: 2px solid rgba(0,212,255,0.3);
+  box-shadow: 0 0 0 4px rgba(0,212,255,0.05), var(--glow-cyan);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+.machine-screen {
+  width: 130px; height: 80px;
+  background: linear-gradient(160deg, #0a1e35, #061020);
+  border-radius: 10px; border: 1px solid rgba(0,212,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.machine-screen i { font-size: 2rem; color: var(--cyan); filter: drop-shadow(0 0 8px var(--cyan)); animation: scanPulse 2s ease-in-out infinite; }
+@keyframes scanPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+.machine-slot {
+  width: 130px; height: 18px;
+  background: rgba(0,212,255,0.08);
+  border-radius: 4px; border: 1px solid rgba(0,212,255,0.25);
+  position: relative; overflow: hidden;
+}
+.machine-slot::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.4), transparent);
+  animation: slotScan 2.5s linear infinite;
+}
+@keyframes slotScan { to { left: 100%; } }
+.machine-btn {
+  width: 44px; height: 20px;
+  background: linear-gradient(90deg, var(--cyan), var(--cyan2));
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,212,255,0.5);
+  animation: btnGlow 2s ease-in-out infinite;
+}
+@keyframes btnGlow { 0%,100%{box-shadow:0 0 8px rgba(0,212,255,0.4)} 50%{box-shadow:0 0 20px rgba(0,212,255,0.8)} }
+.machine-label { font-family: var(--font-head); font-size: 0.5rem; letter-spacing: 0.15em; color: var(--cyan2); text-transform: uppercase; }
+.orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(0,212,255,0.1); animation: spin linear infinite; }
+.orbit--1 { width: 300px; height: 300px; animation-duration: 12s; }
+.orbit--2 { width: 440px; height: 440px; animation-duration: 20s; animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- SECTIONS ---- */
+.section { padding: 6rem 4%; }
+.section--dark { background: var(--bg2); }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); padding: 4px 14px; border-radius: 50px; margin-bottom: 1rem; }
+.section-header h2 { font-family: var(--font-head); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 0.8rem; }
+.section-header p { color: var(--text-muted); max-width: 520px; margin: 0 auto; font-weight: 300; }
+
+/* ---- REGLAS CORRECTO/INCORRECTO ---- */
+.rules-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.rule-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.rule-item.visible { opacity: 1; transform: translateY(0); }
+
+.rule-number {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 0.2rem;
+}
+.rule-num-badge {
+  font-family: var(--font-head); font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.1em; padding: 4px 14px; border-radius: 50px;
+  background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2);
+  color: var(--cyan); text-transform: uppercase;
+}
+.rule-divider { flex: 1; height: 1px; background: var(--border); }
+
+.rule-card {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.rule-card--wrong {
+  background: linear-gradient(145deg, rgba(255,68,68,0.08), rgba(255,68,68,0.03));
+  border: 1px solid rgba(255,68,68,0.25);
+}
+.rule-card--right {
+  background: linear-gradient(145deg, rgba(0,212,255,0.08), rgba(0,255,204,0.03));
+  border: 1px solid rgba(0,212,255,0.3);
+}
+.rule-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.rule-card--wrong::before { background: linear-gradient(90deg, #ff4444, #ff0000); }
+.rule-card--right::before { background: linear-gradient(90deg, var(--cyan), var(--cyan2)); }
+
+.rule-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem;
+}
+.rule-tag {
+  font-family: var(--font-head); font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 50px;
+}
+.rule-tag--wrong {
+  background: rgba(255,68,68,0.15); color: #ff6666;
+  border: 1px solid rgba(255,68,68,0.3);
+}
+.rule-tag--right {
+  background: rgba(0,212,255,0.15); color: var(--cyan);
+  border: 1px solid rgba(0,212,255,0.3);
+}
+.rule-icon { font-size: 1.2rem; }
+.rule-icon--wrong { color: #ff4444; }
+.rule-icon--right { color: var(--cyan2); }
+
+.rule-text {
+  font-size: 0.95rem; color: var(--text-muted); font-weight: 300; line-height: 1.8;
+}
+.rule-text strong { color: var(--text); font-weight: 600; }
+.rule-text em { color: var(--cyan); font-style: normal; }
+
+/* ---- RESUMEN ---- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 1.5rem;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.summary-card.visible { opacity: 1; transform: translateY(0) !important; }
+.summary-card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.35); box-shadow: var(--shadow); }
+.summary-icon { font-size: 1.8rem; color: var(--cyan); margin-bottom: 0.8rem; filter: drop-shadow(0 0 8px rgba(0,212,255,0.4)); }
+.summary-card h4 { font-family: var(--font-head); font-size: 0.82rem; font-weight: 700; margin-bottom: 0.5rem; }
+.summary-card p { font-size: 0.83rem; color: var(--text-muted); font-weight: 300; line-height: 1.7; }
+.summary-pill { display: inline-block; margin-top: 0.8rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; }
+.summary-pill--do { background: rgba(0,255,204,0.07); color: var(--cyan2); border: 1px solid rgba(0,255,204,0.2); }
+.summary-pill--dont { background: rgba(255,68,68,0.07); color: #ff6666; border: 1px solid rgba(255,68,68,0.2); }
+
+/* ---- HERO CONTENT ANIM ---- */
+.hero-content, .hero-visual {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.hero-content.visible { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.hero-visual.visible  { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+/* ---- FOOTER ---- */
+.footer { position: relative; background: var(--bg2); border-top: 1px solid var(--border); padding: 4rem 4% 2rem; overflow: hidden; }
+.footer-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 200px; background: radial-gradient(ellipse, rgba(0,212,255,0.06), transparent 70%); }
+.footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3rem; position: relative; }
+.footer-brand .brand-text { font-family: var(--font-head); font-size: 1.1rem; }
+.footer-brand p { color: var(--text-muted); font-size: 0.83rem; margin-top: 0.5rem; font-weight: 300; }
+.footer-links h5 { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; margin-bottom: 1rem; }
+.footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .navbar { padding: 0.8rem 4%; gap: 0.8rem; flex-wrap: wrap; }
+  .nav-toggle { display: flex; margin-left: auto; }
+  .nav-cta { order: 3; font-size: 0.68rem; padding: 7px 14px; }
+  .nav-links { display: none; flex-direction: column; width: 100%; order: 4; gap: 0; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-top: 0.3rem; }
+  .nav-links.open { display: flex; }
+  .nav-links li a { display: block; padding: 0.85rem 1.2rem; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .nav-links li:last-child a { border-bottom: none; }
+  .hero { flex-direction: column; padding-top: 3.5rem; min-height: auto; gap: 2rem; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  .hero-visual { min-height: 280px; }
+  .rule-item { grid-template-columns: 1fr; }
+  .rule-number { grid-column: 1; }
+  .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+  .section { padding: 4rem 4%; }
+}
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem; }
+  .section-header h2 { font-size: 1.6rem; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">Innovación<strong>Móvil</strong></span>
+    </div>
+    <ul class="nav-links">
+       <li><a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html">Home</a></li>
+      <li><a href="#reglas">Reglas de Uso</a></li>
+      <li><a href="#resumen">Resumen</a></li>
+    </ul>
+    <button class="nav-cta">Ver Reglas</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow hero-glow--1"></div>
+    <div class="hero-glow hero-glow--2"></div>
+    <div class="hero-content">
+      <p class="hero-tag"><span class="dot"></span> Guía de Operación</p>
+      <h1 class="hero-title">
+        Uso Correcto de la<br/>
+        <span class="gradient-text">Máquina</span><br/>
+        de Hidrogel
+      </h1>
+      <p class="hero-desc">
+        Conoce las prácticas correctas e incorrectas para operar la cortadora de hidrogel. Seguir estas reglas protege la máquina y garantiza cortes perfectos.
+      </p>
+      <div class="hero-actions">
+        <a href="#reglas" class="btn btn--primary">Ver Reglas <i class="fas fa-arrow-right"></i></a>
+        <a href="#resumen" class="btn btn--ghost">Resumen rápido</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Reglas clave</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">1×</span><span class="stat-label">Presiona el botón</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">0</span><span class="stat-label">Objetos extraños</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="machine-mockup">
+        <div class="machine-screen">
+          <i class="fas fa-scissors"></i>
+        </div>
+        <div class="machine-slot"></div>
+        <div class="machine-btn"></div>
+        <span class="machine-label">Hidrogel Cutter</span>
+      </div>
+      <div class="orbit orbit--1"></div>
+      <div class="orbit orbit--2"></div>
+    </div>
+  </section>
+
+  <!-- ===== REGLAS ===== -->
+  <section class="section" id="reglas">
+    <div class="section-header">
+      <span class="section-tag">Operación</span>
+      <h2>Reglas de <span class="gradient-text">Uso</span></h2>
+      <p>Cada regla protege los rodillos y mecanismos internos de la máquina. Respétalas siempre.</p>
+    </div>
+
+    <div class="rules-grid">
+
+      <!-- REGLA 1 -->
+      <div class="rule-item">
+        <div class="rule-number">
+          <span class="rule-num-badge">Regla 01</span>
+          <div class="rule-divider"></div>
+        </div>
+        <div class="rule-card rule-card--wrong">
+          <div class="rule-header">
+            <i class="fas fa-times-circle rule-icon rule-icon--wrong"></i>
+            <span class="rule-tag rule-tag--wrong">Incorrecto</span>
+          </div>
+          <p class="rule-text">
+            <strong>Sacar la lámina de hidrogel a la fuerza.</strong> Los rodillos se dañan si se jala la lámina manualmente sin usar el mecanismo de la máquina.
+          </p>
+        </div>
+        <div class="rule-card rule-card--right">
+          <div class="rule-header">
+            <i class="fas fa-check-circle rule-icon rule-icon--right"></i>
+            <span class="rule-tag rule-tag--right">Correcto</span>
+          </div>
+          <p class="rule-text">
+            <em>Se usa el botón de sensor</em> para que la máquina expulse automáticamente la lámina de hidrogel sin forzar ningún componente.
+          </p>
+        </div>
+      </div>
+
+      <!-- REGLA 2 -->
+      <div class="rule-item">
+        <div class="rule-number">
+          <span class="rule-num-badge">Regla 02</span>
+          <div class="rule-divider"></div>
+        </div>
+        <div class="rule-card rule-card--wrong">
+          <div class="rule-header">
+            <i class="fas fa-times-circle rule-icon rule-icon--wrong"></i>
+            <span class="rule-tag rule-tag--wrong">Incorrecto</span>
+          </div>
+          <p class="rule-text">
+            <strong>Mantener oprimido el botón del sensor sin razón.</strong> Presionar el botón de forma continua o repetida puede causar fallas en el mecanismo interno.
+          </p>
+        </div>
+        <div class="rule-card rule-card--right">
+          <div class="rule-header">
+            <i class="fas fa-check-circle rule-icon rule-icon--right"></i>
+            <span class="rule-tag rule-tag--right">Correcto</span>
+          </div>
+          <p class="rule-text">
+            <em>Solo se debe oprimir 1 vez</em> el botón del sensor para que saque la lámina de hidrogel. Un solo toque es suficiente para activar el mecanismo.
+          </p>
+        </div>
+      </div>
+
+      <!-- REGLA 3 -->
+      <div class="rule-item">
+        <div class="rule-number">
+          <span class="rule-num-badge">Regla 03</span>
+          <div class="rule-divider"></div>
+        </div>
+        <div class="rule-card rule-card--wrong">
+          <div class="rule-header">
+            <i class="fas fa-times-circle rule-icon rule-icon--wrong"></i>
+            <span class="rule-tag rule-tag--wrong">Incorrecto</span>
+          </div>
+          <p class="rule-text">
+            <strong>Meter la hidrogel a la fuerza</strong> y no esperar que el sensor la jale. Introducir la lámina manualmente sin dejar que el sensor la tome puede desalinear los rodillos.
+          </p>
+        </div>
+        <div class="rule-card rule-card--right">
+          <div class="rule-header">
+            <i class="fas fa-check-circle rule-icon rule-icon--right"></i>
+            <span class="rule-tag rule-tag--right">Correcto</span>
+          </div>
+          <p class="rule-text">
+            <em>El sensor debe jalar automáticamente la tablilla de hidrogel.</em> Coloca la lámina en la ranura y espera a que el mecanismo la tome por sí solo.
+          </p>
+        </div>
+      </div>
+
+      <!-- REGLA 4 -->
+      <div class="rule-item">
+        <div class="rule-number">
+          <span class="rule-num-badge">Regla 04</span>
+          <div class="rule-divider"></div>
+        </div>
+        <div class="rule-card rule-card--wrong">
+          <div class="rule-header">
+            <i class="fas fa-times-circle rule-icon rule-icon--wrong"></i>
+            <span class="rule-tag rule-tag--wrong">Incorrecto</span>
+          </div>
+          <p class="rule-text">
+            <strong>Jalar el hidrogel o tratar de detener el corte introduciendo un objeto</strong> cuando la cortadora ya empezó a hacer el corte. Esto puede dañar la cuchilla y los rodillos gravemente.
+          </p>
+        </div>
+        <div class="rule-card rule-card--right">
+          <div class="rule-header">
+            <i class="fas fa-check-circle rule-icon rule-icon--right"></i>
+            <span class="rule-tag rule-tag--right">Correcto</span>
+          </div>
+          <p class="rule-text">
+            <em>Se debe oprimir 1 vez el botón para cancelar el corte.</em> Si necesitas detener el proceso, un toque al botón enviará la señal de cancelación de forma segura.
+          </p>
+        </div>
+      </div>
+
+      <!-- REGLA 5 -->
+      <div class="rule-item">
+        <div class="rule-number">
+          <span class="rule-num-badge">Regla 05</span>
+          <div class="rule-divider"></div>
+        </div>
+        <div class="rule-card rule-card--wrong">
+          <div class="rule-header">
+            <i class="fas fa-times-circle rule-icon rule-icon--wrong"></i>
+            <span class="rule-tag rule-tag--wrong">Incorrecto</span>
+          </div>
+          <p class="rule-text">
+            <strong>Intentar limpiar el rodillo con lápiz, trapo, plástico, cepillo o cualquier objeto</strong> que pueda presionar y dañar el rodillo. Cualquier presión externa sobre el rodillo lo deteriora.
+          </p>
+        </div>
+        <div class="rule-card rule-card--right">
+          <div class="rule-header">
+            <i class="fas fa-check-circle rule-icon rule-icon--right"></i>
+            <span class="rule-tag rule-tag--right">Correcto</span>
+          </div>
+          <p class="rule-text">
+            <em>Los repartidores harán la limpieza de la máquina.</em> No intentes limpiar el rodillo por tu cuenta. El personal autorizado se encargará del mantenimiento.
+          </p>
+        </div>
+      </div>
+
+      <!-- REGLA 6 -->
+      <div class="rule-item">
+        <div class="rule-number">
+          <span class="rule-num-badge">Regla 06</span>
+          <div class="rule-divider"></div>
+        </div>
+        <div class="rule-card rule-card--wrong">
+          <div class="rule-header">
+            <i class="fas fa-times-circle rule-icon rule-icon--wrong"></i>
+            <span class="rule-tag rule-tag--wrong">Incorrecto</span>
+          </div>
+          <p class="rule-text">
+            <strong>Meter a la máquina hojas de papel o cualquier otra cosa</strong> que no sea la lámina de hidrogel. Introducir materiales incorrectos puede obstruir y dañar el mecanismo de corte.
+          </p>
+        </div>
+        <div class="rule-card rule-card--right">
+          <div class="rule-header">
+            <i class="fas fa-check-circle rule-icon rule-icon--right"></i>
+            <span class="rule-tag rule-tag--right">Correcto</span>
+          </div>
+          <p class="rule-text">
+            <em>Solo meter la lámina de hidrogel.</em> La máquina está diseñada exclusivamente para cortar láminas de hidrogel. No introduzcas ningún otro material.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== RESUMEN ===== -->
+  <section class="section section--dark" id="resumen">
+    <div class="section-header">
+      <span class="section-tag">Referencia rápida</span>
+      <h2>Resumen de <span class="gradient-text">Buenas Prácticas</span></h2>
+      <p>Los puntos más importantes para recordar cada vez que uses la máquina.</p>
+    </div>
+    <div class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-icon"><i class="fas fa-hand-pointer"></i></div>
+        <h4>Un solo toque</h4>
+        <p>Tanto para sacar la lámina como para cancelar un corte, el botón del sensor solo debe presionarse <strong>una vez</strong>.</p>
+        <span class="summary-pill summary-pill--do">✓ Hacer</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon"><i class="fas fa-clock"></i></div>
+        <h4>Espera al sensor</h4>
+        <p>Al insertar la lámina, espera a que la máquina la jale automáticamente. <strong>No la empujes a la fuerza</strong>.</p>
+        <span class="summary-pill summary-pill--do">✓ Hacer</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon"><i class="fas fa-ban"></i></div>
+        <h4>No fuerces la lámina</h4>
+        <p>Nunca saques ni metas el hidrogel a la fuerza. Los rodillos son delicados y se dañan con presión manual.</p>
+        <span class="summary-pill summary-pill--dont">✗ Evitar</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon"><i class="fas fa-tools"></i></div>
+        <h4>No limpies el rodillo</h4>
+        <p>El mantenimiento y limpieza de la máquina es tarea exclusiva de los <strong>repartidores autorizados</strong>.</p>
+        <span class="summary-pill summary-pill--dont">✗ Evitar</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon"><i class="fas fa-layer-group"></i></div>
+        <h4>Solo hidrogel</h4>
+        <p>La máquina es exclusiva para láminas de hidrogel. No introduzcas papel, plásticos ni ningún otro material.</p>
+        <span class="summary-pill summary-pill--dont">✗ Evitar</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon"><i class="fas fa-shield-halved"></i></div>
+        <h4>Cancelar correctamente</h4>
+        <p>Si necesitas detener un corte en proceso, presiona el botón <strong>una vez</strong>. Nunca introduzcas objetos para detenerlo.</p>
+        <span class="summary-pill summary-pill--do">✓ Hacer</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">Innovación<strong> Móvil</strong></span>
+        <p>La mejor protección y accesorios para cada dispositivo.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Navegación</h5>
+        <a href="#reglas">Reglas de Uso</a>
+        <a href="#resumen">Resumen</a>
+      </div>
+      <div class="footer-links">
+        <h5>Recursos</h5>
+        <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank">Material de apoyo</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Innovación Móvil — Todos los derechos reservados. | Uso Correcto de la Máquina de Hidrogel.</p>
+    </div>
+  </footer>
+
+  <script>
+// ---- Intersection Observer ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+// Stagger rule items
+document.querySelectorAll('.rule-item').forEach((el, i) => {
+  el.dataset.delay = i * 100;
+  observer.observe(el);
+});
+// Stagger summary cards
+document.querySelectorAll('.summary-card').forEach((el, i) => {
+  el.dataset.delay = i * 80;
+  observer.observe(el);
+});
+// Hero
+document.querySelectorAll('.hero-content, .hero-visual').forEach(el => observer.observe(el));
+
+// ---- Active nav link ----
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.style.color = '';
+        if (link.getAttribute('href') === '#' + entry.target.id) link.style.color = 'var(--cyan)';
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => navObserver.observe(s));
+
+// ---- Navbar shrink ----
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  navbar.style.padding = window.scrollY > 60 ? '0.6rem 4%' : '1rem 4%';
+});
+
+// ---- CTA scroll ----
+document.querySelector('.nav-cta').addEventListener('click', () => {
+  document.querySelector('#reglas').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ---- Hamburger ----
+const navToggle = document.getElementById('navToggle');
+const navLinksList = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinksList.classList.toggle('open');
+});
+  </script>
+</body>
+</html>

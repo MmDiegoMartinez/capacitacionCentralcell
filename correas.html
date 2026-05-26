@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Innovación Móvil — Correas Apple Watch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+:root {
+  --bg:        #050c17;
+  --bg2:       #080f1e;
+  --surface:   #0f1d30;
+  --surface2:  #162236;
+  --border:    rgba(0,200,255,0.12);
+  --cyan:      #00d4ff;
+  --cyan2:     #00ffcc;
+  --purple:    #7b4fff;
+  --orange:    #ff7b00;
+  --green:     #00e676;
+  --text:      #e8f4ff;
+  --text-muted:#7a9ab8;
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow:    0 8px 40px rgba(0,212,255,0.08);
+  --glow-cyan: 0 0 30px rgba(0,212,255,0.35);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+/* ---- NAVBAR ---- */
+.navbar {
+  position: sticky; top: 0; z-index: 900;
+  display: flex; align-items: center; gap: 2rem;
+  padding: 1rem 4%;
+  background: rgba(5,12,23,0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border); transition: padding 0.3s;
+}
+.nav-brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 1.1rem; }
+.brand-icon { font-size: 1.4rem; color: var(--cyan); filter: drop-shadow(0 0 6px var(--cyan)); }
+.brand-text strong { color: var(--cyan); }
+.nav-links { display: flex; gap: 2rem; margin-left: auto; }
+.nav-links a { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted); transition: color 0.2s; text-transform: uppercase; }
+.nav-links a:hover { color: var(--cyan); }
+.nav-cta { margin-left: 1rem; padding: 8px 20px; background: transparent; border: 1.5px solid var(--cyan); color: var(--cyan); font-family: var(--font-head); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; border-radius: 50px; cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s; }
+.nav-cta:hover { background: var(--cyan); color: var(--bg); box-shadow: var(--glow-cyan); }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: transparent; border: none; cursor: pointer; padding: 6px; margin-left: 0.5rem; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cyan); border-radius: 2px; transition: all 0.3s; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- HERO ---- */
+.hero {
+  position: relative; min-height: 92vh;
+  display: flex; align-items: center;
+  padding: 6rem 4% 4rem; overflow: hidden; gap: 4rem;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px; z-index: 0;
+}
+.hero-glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+.hero-glow--1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,212,255,0.15), transparent 70%); top: -100px; left: -100px; }
+.hero-glow--2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(123,79,255,0.15), transparent 70%); bottom: -80px; right: 5%; }
+
+.hero-content { position: relative; z-index: 1; flex: 1; max-width: 560px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.2rem; }
+.dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 8px var(--cyan); animation: pulse 1.8s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+.hero-title { font-family: var(--font-head); font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.2rem; }
+.gradient-text { background: linear-gradient(90deg, var(--cyan), var(--cyan2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-desc { font-size: 1rem; color: var(--text-muted); max-width: 480px; margin-bottom: 2rem; font-weight: 300; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 14px 28px; border-radius: 50px; transition: all 0.25s; cursor: pointer; border: none; }
+.btn--primary { background: linear-gradient(135deg, var(--cyan), var(--cyan2)); color: var(--bg); box-shadow: 0 4px 25px rgba(0,212,255,0.35); }
+.btn--primary:hover { transform: translateY(-3px); box-shadow: 0 8px 35px rgba(0,212,255,0.5); }
+.btn--ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); }
+.btn--ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+.hero-stats { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { display: block; font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--cyan); line-height: 1; }
+.stat-label { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.04em; }
+.stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+/* ---- HERO VISUAL: Watch mockup ---- */
+.hero-visual { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; min-height: 400px; }
+.watch-stack {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: -10px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+.watch-body {
+  width: 130px; height: 150px;
+  background: linear-gradient(160deg, #1a2d45, #0a1520);
+  border-radius: 36px; border: 2px solid rgba(0,212,255,0.3);
+  box-shadow: var(--glow-cyan);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.watch-screen {
+  width: 100px; height: 115px;
+  background: linear-gradient(160deg, #061428, #020c1e);
+  border-radius: 28px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+}
+.watch-screen i { font-size: 2rem; color: var(--cyan); filter: drop-shadow(0 0 10px var(--cyan)); }
+.watch-time { font-family: var(--font-head); font-size: 0.55rem; color: var(--cyan2); letter-spacing: 0.1em; }
+.watch-band-top, .watch-band-bot {
+  width: 50px; height: 35px; border-radius: 4px;
+  background: linear-gradient(180deg, rgba(0,212,255,0.3), rgba(0,212,255,0.1));
+  border: 1px solid rgba(0,212,255,0.2);
+  margin: -2px auto;
+}
+.orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(0,212,255,0.1); animation: spin linear infinite; }
+.orbit--1 { width: 300px; height: 300px; animation-duration: 12s; }
+.orbit--2 { width: 440px; height: 440px; animation-duration: 20s; animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- SECTIONS ---- */
+.section { padding: 6rem 4%; }
+.section--dark { background: var(--bg2); }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); padding: 4px 14px; border-radius: 50px; margin-bottom: 1rem; }
+.section-header h2 { font-family: var(--font-head); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 0.8rem; }
+.section-header p { color: var(--text-muted); max-width: 520px; margin: 0 auto; font-weight: 300; }
+
+/* ---- VIDEO SECTION ---- */
+.video-section { padding: 5rem 4%; }
+.video-wrapper {
+  max-width: 900px; margin: 0 auto;
+  position: relative; border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(0,212,255,0.25);
+  box-shadow: 0 0 60px rgba(0,212,255,0.12), 0 0 0 1px rgba(0,212,255,0.08);
+}
+.video-glow {
+  position: absolute; inset: -20px;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.08), transparent 70%);
+  pointer-events: none; z-index: -1;
+}
+.video-wrapper iframe {
+  display: block; width: 100%; aspect-ratio: 16/9; border: none;
+}
+.video-caption {
+  background: var(--surface2); border-top: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.video-caption i { color: var(--cyan); font-size: 0.9rem; }
+.video-caption span { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
+.video-caption strong { color: var(--text); font-weight: 600; }
+
+/* ---- COMPATIBILIDAD CARDS ---- */
+.compat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.compat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.compat-card.visible { opacity: 1; transform: translateY(0); }
+.compat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.compat-card--small { border-color: rgba(0,212,255,0.3); }
+.compat-card--large { border-color: rgba(123,79,255,0.35); }
+.compat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.compat-card--small::before { background: linear-gradient(90deg, var(--cyan), var(--cyan2)); }
+.compat-card--large::before { background: linear-gradient(90deg, var(--purple), #b08aff); }
+.compat-badge {
+  position: absolute; top: 16px; right: 16px;
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+  padding: 3px 10px; border-radius: 50px; text-transform: uppercase;
+}
+.compat-card--small .compat-badge { background: rgba(0,212,255,0.12); color: var(--cyan); border: 1px solid rgba(0,212,255,0.25); }
+.compat-card--large .compat-badge { background: rgba(123,79,255,0.12); color: #b08aff; border: 1px solid rgba(123,79,255,0.25); }
+
+.compat-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+.compat-card--small .compat-icon { color: var(--cyan); filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); }
+.compat-card--large .compat-icon { color: #b08aff; filter: drop-shadow(0 0 10px rgba(123,79,255,0.5)); }
+
+.compat-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.compat-subtitle { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; }
+.compat-card--small .compat-subtitle { color: var(--cyan); }
+.compat-card--large .compat-subtitle { color: #b08aff; }
+
+.sizes-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.size-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  background: rgba(0,212,255,0.04); border-radius: 10px;
+  border: 1px solid rgba(0,212,255,0.08);
+  transition: background 0.2s, border-color 0.2s;
+}
+.size-item:hover { background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.2); }
+.compat-card--large .size-item { background: rgba(123,79,255,0.04); border-color: rgba(123,79,255,0.08); }
+.compat-card--large .size-item:hover { background: rgba(123,79,255,0.1); border-color: rgba(123,79,255,0.2); }
+.size-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.compat-card--small .size-dot { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+.compat-card--large .size-dot { background: #b08aff; box-shadow: 0 0 6px #b08aff; }
+.size-mm { font-family: var(--font-head); font-size: 1.1rem; font-weight: 800; }
+.compat-card--small .size-mm { color: var(--cyan); }
+.compat-card--large .size-mm { color: #b08aff; }
+.size-desc { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+.size-ultra {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 50px;
+  background: rgba(255,123,0,0.15); color: var(--orange);
+  border: 1px solid rgba(255,123,0,0.3); margin-left: auto;
+}
+
+/* ---- TIPOS DE CORREA ---- */
+.bands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.band-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 1.5rem;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.band-card.visible { opacity: 1; transform: translateY(0); }
+.band-card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.35); box-shadow: var(--shadow); }
+.band-icon { font-size: 1.8rem; color: var(--cyan); margin-bottom: 0.8rem; filter: drop-shadow(0 0 8px rgba(0,212,255,0.4)); }
+.band-card h4 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; margin-bottom: 0.4rem; }
+.band-card p { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; margin-bottom: 0.8rem; }
+.band-pill { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; color: var(--cyan2); background: rgba(0,255,204,0.07); border: 1px solid rgba(0,255,204,0.2); }
+
+/* ---- ANIM HERO ---- */
+.hero-content, .hero-visual {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.hero-content.visible { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.hero-visual.visible  { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+.video-wrapper { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.video-wrapper.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- FOOTER ---- */
+.footer { position: relative; background: var(--bg2); border-top: 1px solid var(--border); padding: 4rem 4% 2rem; overflow: hidden; }
+.footer-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 200px; background: radial-gradient(ellipse, rgba(0,212,255,0.06), transparent 70%); }
+.footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3rem; position: relative; }
+.footer-brand .brand-text { font-family: var(--font-head); font-size: 1.1rem; }
+.footer-brand p { color: var(--text-muted); font-size: 0.83rem; margin-top: 0.5rem; font-weight: 300; }
+.footer-links h5 { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; margin-bottom: 1rem; }
+.footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .navbar { padding: 0.8rem 4%; gap: 0.8rem; flex-wrap: wrap; }
+  .nav-toggle { display: flex; margin-left: auto; }
+  .nav-cta { order: 3; font-size: 0.68rem; padding: 7px 14px; }
+  .nav-links { display: none; flex-direction: column; width: 100%; order: 4; gap: 0; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-top: 0.3rem; }
+  .nav-links.open { display: flex; }
+  .nav-links li a { display: block; padding: 0.85rem 1.2rem; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .nav-links li:last-child a { border-bottom: none; }
+  .hero { flex-direction: column; padding-top: 3.5rem; min-height: auto; gap: 2rem; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { min-height: 260px; }
+  .compat-grid { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+  .section { padding: 4rem 4%; }
+  .video-section { padding: 3rem 4%; }
+}
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem; }
+  .section-header h2 { font-size: 1.6rem; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">Innovación<strong>Móvil</strong></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html">Home</a></li>
+      <li><a href="#video">Video</a></li>
+      <li><a href="#compatibilidad">Compatibilidad</a></li>
+      <li><a href="#tipos">Tipos</a></li>
+    </ul>
+    <button class="nav-cta">Ver Tallas</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow hero-glow--1"></div>
+    <div class="hero-glow hero-glow--2"></div>
+    <div class="hero-content">
+      <p class="hero-tag"><span class="dot"></span> Apple Watch</p>
+      <h1 class="hero-title">
+        Correas<br/>
+        <span class="gradient-text">Compatibles</span><br/>
+        Apple Watch
+      </h1>
+      <p class="hero-desc">
+        Conoce todas las tallas de correa compatibles según el modelo de Apple Watch del cliente. Dos grupos de medidas, cero errores en la venta.
+      </p>
+      <div class="hero-actions">
+        <a href="#compatibilidad" class="btn btn--primary">Ver Tallas <i class="fas fa-arrow-right"></i></a>
+        <a href="#video" class="btn btn--ghost">Ver Video</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Grupos de talla</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">7</span><span class="stat-label">Medidas cubiertas</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Compatibilidad</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="watch-stack">
+        <div class="watch-band-top"></div>
+        <div class="watch-body">
+          <div class="watch-screen">
+            <i class="fab fa-apple"></i>
+            <span class="watch-time">10:09</span>
+          </div>
+        </div>
+        <div class="watch-band-bot"></div>
+      </div>
+      <div class="orbit orbit--1"></div>
+      <div class="orbit orbit--2"></div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO ===== -->
+  <section class="video-section section--dark" id="video">
+    <div class="section-header">
+      <span class="section-tag">Vista Previa</span>
+      <h2>Video de <span class="gradient-text">Referencia</span></h2>
+      <p>Mira el video de compatibilidad de correas para Apple Watch antes de asesorar al cliente.</p>
+    </div>
+    <div class="video-wrapper">
+      <div class="video-glow"></div>
+      <iframe
+        src="https://drive.google.com/file/d/1541I-aPd3vSWduzVfNJPHsuuLQTj6XRJ/preview"
+        allow="autoplay"
+        allowfullscreen>
+      </iframe>
+      <div class="video-caption">
+        <i class="fas fa-play-circle"></i>
+        <span><strong>Correas Apple Watch</strong> — Guía de compatibilidad por tallas · Innovación Móvil</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPATIBILIDAD ===== -->
+  <section class="section" id="compatibilidad">
+    <div class="section-header">
+      <span class="section-tag">Tallas</span>
+      <h2>Guía de <span class="gradient-text">Compatibilidad</span></h2>
+      <p>Antes de recomendar una correa, identifica el tamaño de la caja del Apple Watch del cliente.</p>
+    </div>
+
+    <div class="compat-grid">
+
+      <!-- GRUPO PEQUEÑO -->
+      <div class="compat-card compat-card--small">
+        <span class="compat-badge">Grupo A</span>
+        <div class="compat-icon"><i class="fas fa-watch"></i></div>
+        <h3>Serie Clásica</h3>
+        <p class="compat-subtitle">Correas Grupo Pequeño</p>
+        <div class="sizes-list">
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">38 mm</span>
+            <span class="size-desc">Apple Watch Series 1–3</span>
+          </div>
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">40 mm</span>
+            <span class="size-desc">Series 4, 5, 6, SE (1.ª gen)</span>
+          </div>
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">41 mm</span>
+            <span class="size-desc">Series 7, 8, 9 y SE (2.ª gen)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRUPO GRANDE -->
+      <div class="compat-card compat-card--large">
+        <span class="compat-badge">Grupo B</span>
+        <div class="compat-icon"><i class="fas fa-crown"></i></div>
+        <h3>Serie Pro / Ultra</h3>
+        <p class="compat-subtitle">Correas Grupo Grande</p>
+        <div class="sizes-list">
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">42 mm</span>
+            <span class="size-desc">Apple Watch Series 1–3</span>
+          </div>
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">44 mm</span>
+            <span class="size-desc">Series 4, 5, 6, SE (1.ª gen)</span>
+          </div>
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">45 mm</span>
+            <span class="size-desc">Series 7, 8, 9 y SE (2.ª gen)</span>
+          </div>
+          <div class="size-item">
+            <span class="size-dot"></span>
+            <span class="size-mm">49 mm</span>
+            <span class="size-desc">Apple Watch Ultra y Ultra 2</span>
+            <span class="size-ultra">Ultra</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== TIPOS DE CORREA ===== -->
+  <section class="section section--dark" id="tipos">
+    <div class="section-header">
+      <span class="section-tag">Catálogo</span>
+      <h2>Tipos de <span class="gradient-text">Correa</span></h2>
+      <p>Diferentes estilos disponibles para cada gusto y necesidad del cliente.</p>
+    </div>
+    <div class="bands-grid">
+
+      <div class="band-card">
+        <div class="band-icon"><i class="fas fa-link"></i></div>
+        <h4>Silicona / Sport</h4>
+        <p>La más popular. Resistente al agua y al sudor. Perfecta para deporte y uso diario. Disponible en múltiples colores.</p>
+        <span class="band-pill">uso diario · sport</span>
+      </div>
+
+      <div class="band-card">
+        <div class="band-icon"><i class="fas fa-th"></i></div>
+        <h4>Nylon / Tela</h4>
+        <p>Tejido transpirable y cómodo. Acabado premium con cierre tipo loop. Ideal para uso casual y oficina.</p>
+        <span class="band-pill">casual · transpirable</span>
+      </div>
+
+      <div class="band-card">
+        <div class="band-icon"><i class="fas fa-water"></i></div>
+        <h4>Ocean Band</h4>
+        <p>Diseño robusto de silicona texturizada, compatible con Apple Watch Ultra. Alta resistencia y estilo aventurero.</p>
+        <span class="band-pill">ultra · outdoor</span>
+      </div>
+
+      <div class="band-card">
+        <div class="band-icon"><i class="fas fa-star"></i></div>
+        <h4>Milanese / Metal</h4>
+        <p>Malla de acero inoxidable con cierre magnético. Look elegante y formal, ajuste perfecto a cualquier muñeca.</p>
+        <span class="band-pill">formal · premium</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">Innovación<strong> Móvil</strong></span>
+        <p>La mejor protección y accesorios para cada dispositivo.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Navegación</h5>
+        <a href="#video">Video de referencia</a>
+        <a href="#compatibilidad">Compatibilidad</a>
+        <a href="#tipos">Tipos de correa</a>
+      </div>
+      <div class="footer-links">
+        <h5>Recursos</h5>
+        <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank">Material de apoyo</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Innovación Móvil — Todos los derechos reservados. | Correas Compatibles Apple Watch.</p>
+    </div>
+  </footer>
+
+  <script>
+// ---- Intersection Observer ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+function addStaggerDelay(selector, base = 100) {
+  document.querySelectorAll(selector).forEach((el, i) => { el.dataset.delay = i * base; observer.observe(el); });
+}
+
+addStaggerDelay('.compat-card', 120);
+addStaggerDelay('.band-card', 90);
+document.querySelectorAll('.hero-content, .hero-visual, .video-wrapper').forEach(el => observer.observe(el));
+
+// ---- Active nav ----
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => { l.style.color = ''; if (l.getAttribute('href') === '#' + e.target.id) l.style.color = 'var(--cyan)'; });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => navObs.observe(s));
+
+// ---- Navbar shrink ----
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => { navbar.style.padding = window.scrollY > 60 ? '0.6rem 4%' : '1rem 4%'; });
+
+// ---- CTA ----
+document.querySelector('.nav-cta').addEventListener('click', () => {
+  document.querySelector('#compatibilidad').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ---- Hamburger ----
+const navToggle = document.getElementById('navToggle');
+const navLinksList = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinksList.classList.toggle('open');
+});
+  </script>
+</body>
+</html>
