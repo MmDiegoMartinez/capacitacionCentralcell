@@ -234,6 +234,180 @@ ul { list-style: none; }
   .hero-title { font-size: 2rem; }
   .section-header h2 { font-size: 1.6rem; }
 }
+    /* ===== PREMIUM STEPS ===== */
+
+.premium-steps{
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.premium-step{
+  position: relative;
+  display: flex;
+  gap: 1.2rem;
+  padding: 1.3rem;
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg,
+    rgba(0,212,255,0.07),
+    rgba(123,79,255,0.06));
+  border: 1px solid rgba(0,212,255,0.15);
+  overflow: hidden;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+}
+
+.premium-step:hover{
+  transform: translateY(-4px);
+  border-color: rgba(0,212,255,0.35);
+  box-shadow:
+    0 0 25px rgba(0,212,255,0.15),
+    0 12px 40px rgba(0,0,0,0.35);
+}
+
+.premium-step::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,
+    transparent,
+    rgba(255,255,255,0.04),
+    transparent);
+  transform: translateX(-100%);
+  transition: 0.7s;
+}
+
+.premium-step:hover::before{
+  transform: translateX(100%);
+}
+
+.premium-num{
+  min-width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--cyan);
+  background:
+    linear-gradient(145deg,
+    rgba(0,212,255,0.12),
+    rgba(0,255,204,0.05));
+  border: 1px solid rgba(0,212,255,0.25);
+  box-shadow: inset 0 0 20px rgba(0,212,255,0.08);
+}
+
+.premium-content{
+  display:flex;
+  gap:1rem;
+  flex:1;
+}
+
+.premium-icon{
+  min-width:58px;
+  height:58px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.18);
+}
+
+.premium-icon i{
+  color: var(--cyan);
+  font-size: 1.2rem;
+}
+
+.premium-content h4{
+  font-family: var(--font-head);
+  font-size: 1rem;
+  margin-bottom: .45rem;
+  color: var(--text);
+}
+
+.premium-content p{
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: .92rem;
+}
+
+.premium-title{
+  margin-top: 2.5rem;
+  margin-bottom: .5rem;
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  font-family: var(--font-head);
+  color: var(--cyan);
+  font-size: 1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.premium-title i{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.18);
+}
+
+.premium-alert,
+.premium-info{
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border-radius: 14px;
+  display:flex;
+  align-items:flex-start;
+  gap:.7rem;
+  font-size:.85rem;
+}
+
+.premium-alert{
+  background: rgba(255,123,0,0.08);
+  border: 1px solid rgba(255,123,0,0.2);
+}
+
+.premium-alert i{
+  color: var(--orange);
+}
+
+.premium-info{
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.18);
+}
+
+.premium-info i{
+  color: var(--cyan);
+}
+
+@media(max-width:768px){
+
+  .premium-step{
+    flex-direction: column;
+  }
+
+  .premium-content{
+    flex-direction: column;
+  }
+
+  .premium-num{
+    width:72px;
+  }
+
+}
+    
   </style>
 </head>
 <body>
@@ -466,239 +640,264 @@ ul { list-style: none; }
       <p>Sigue los 26 pasos en orden para garantizar una instalación perfecta del polímero Protection Pro.</p>
     </div>
  
-    <div class="proceso-grid">
- 
-      <!-- CATEGORÍA: Preparación -->
-      <div class="proceso-category-header">
-        <div class="cat-line"></div>
-        <span class="cat-label"><i class="fas fa-clipboard-check" style="margin-right:6px"></i>Preparación inicial</span>
-        <div class="cat-line"></div>
+    
+      <!-- ===== PASOS DESTACADOS ===== -->
+<div class="premium-steps">
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">12</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-arrows-up-down"></i></div>
+      <div>
+        <h4>Alinear la planilla en la máquina</h4>
+        <p>
+          Alinear los <strong>rodillos</strong> con las líneas de la planilla.
+          Colocarla ligeramente inclinada y presionar la flecha <strong>↑</strong>.
+          La máquina la jalará automáticamente.
+        </p>
       </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">01</span>
-        <div class="ps-body">
-          <p><strong>Verificar el modelo del cliente</strong> — Revisar en Configuraciones → Acerca del equipo. Nunca asumir el modelo por apariencia externa.</p>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">13</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-scissors"></i></div>
+      <div>
+        <h4>Iniciar el corte</h4>
+        <p>
+          En la app selecciona <strong>"Realizar corte"</strong> y presiona
+          el botón amarillo <strong>"Cortar"</strong>.
+        </p>
+
+        <div class="premium-alert">
+          <i class="fas fa-triangle-exclamation"></i>
+          <span>
+            Si el corte se interrumpe o el QR falla, continuar usando un <strong>Token</strong>.
+          </span>
         </div>
       </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">02</span>
-        <div class="ps-body">
-          <p><strong>Explicar al cliente las características</strong> de los diferentes tipos de polímeros disponibles para que elija el más adecuado para su uso.</p>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">14</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-gear"></i></div>
+      <div>
+        <h4>Finalizar corte</h4>
+        <p>
+          Esperar a que la máquina termine el proceso.
+          Para retirar la planilla, presionar la flecha <strong>↓</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">15</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-hand"></i></div>
+      <div>
+        <h4>Retirar el polímero</h4>
+        <p>
+          Despegar el polímero cuidadosamente de la planilla,
+          evitando doblarlo o forzarlo.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITULO -->
+  <div class="premium-title">
+    <i class="fas fa-mobile-screen-button"></i>
+    <span>Aplicación al equipo</span>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">16</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-spray-can-sparkles"></i></div>
+      <div>
+        <h4>Limpiar el celular</h4>
+        <p>
+          Limpiar completamente la pantalla usando
+          <strong>alcohol isopropílico</strong> y un paño limpio.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">17</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-hand-sparkles"></i></div>
+      <div>
+        <h4>Aplicar gel en los dedos</h4>
+        <p>
+          Rociar gel instalador en las yemas de los dedos
+          antes de tocar el polímero para evitar huellas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">18</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-droplet"></i></div>
+      <div>
+        <h4>Rociar la pantalla</h4>
+        <p>
+          Aplicar gel instalador sobre toda la superficie
+          donde se colocará el polímero.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">19</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-crosshairs"></i></div>
+      <div>
+        <h4>Centrar correctamente</h4>
+        <p>
+          Colocar el polímero alineándolo correctamente
+          antes de comenzar a pegar.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">20</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-up-down"></i></div>
+      <div>
+        <h4>Espatular hacia abajo</h4>
+        <p>
+          Con la espátula, pegar desde el centro
+          hacia la parte inferior retirando el exceso de gel.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">21</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-up-long"></i></div>
+      <div>
+        <h4>Espatular hacia arriba</h4>
+        <p>
+          Repetir el mismo procedimiento
+          desde el centro hacia la parte superior.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITULO -->
+  <div class="premium-title">
+    <i class="fas fa-wind"></i>
+    <span>Secado y entrega</span>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">22</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-shirt"></i></div>
+      <div>
+        <h4>Retirar exceso de gel</h4>
+        <p>
+          Cubrir el celular con un trapo limpio
+          y retirar completamente el exceso de gel.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">23</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-fan"></i></div>
+      <div>
+        <h4>Secar la pantalla</h4>
+        <p>
+          Aplicar calor con la secadora durante
+          aproximadamente <strong>1 minuto</strong>
+          a unos <strong>15 cm</strong> de distancia.
+        </p>
+
+        <div class="premium-info">
+          <i class="fas fa-circle-info"></i>
+          <span>
+            Las líneas visibles desaparecen cuando el gel termina de secar.
+          </span>
         </div>
       </div>
- 
-      <!-- CATEGORÍA: Conexión y corte -->
-      <div class="proceso-category-header">
-        <div class="cat-line"></div>
-        <span class="cat-label"><i class="fas fa-cut" style="margin-right:6px"></i>Conexión y corte</span>
-        <div class="cat-line"></div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">24</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-mobile"></i></div>
+      <div>
+        <h4>Colocar el case</h4>
+        <p>
+          Instalar nuevamente el case para proteger
+          el polímero recién colocado.
+        </p>
       </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">03</span>
-        <div class="ps-body">
-          <p><strong>Conectar la máquina Protection Pro</strong> a la tablet o celular mediante adaptador <em>OTG</em> o <em>Bluetooth</em>. Mantener la conexión activa durante todo el proceso de corte.</p>
-        </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">25</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-clock"></i></div>
+      <div>
+        <h4>Indicación al cliente</h4>
+        <p>
+          Durante las próximas <strong>2 horas</strong>,
+          evitar guardar el celular en bolsas, mochilas o bolsillos.
+        </p>
       </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">04</span>
-        <div class="ps-body">
-          <p><strong>Abrir la aplicación de Protection Pro</strong> para iniciar el proceso de corte.</p>
-        </div>
+    </div>
+  </div>
+
+  <!-- PASO -->
+  <div class="premium-step">
+    <div class="premium-num">26</div>
+    <div class="premium-content">
+      <div class="premium-icon"><i class="fas fa-star"></i></div>
+      <div>
+        <h4>Entrega final</h4>
+        <p>
+          Limpiar completamente el equipo
+          y entregarlo en perfectas condiciones.
+        </p>
       </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">05</span>
-        <div class="ps-body">
-          <p><strong>Escribir en el buscador</strong> la marca y modelo exacto del celular del cliente.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">06</span>
-        <div class="ps-body">
-          <p>Seleccionar el corte <strong>"Case Friendly"</strong> — es el corte amigable con todo tipo de funda. Esto evita que el protector se despegue con el uso de accesorios.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">07</span>
-        <div class="ps-body">
-          <p>La pantalla mostrará una <strong>simulación del corte</strong> para corroborar que es correcto antes de continuar.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-nota">
-        <i class="fas fa-triangle-exclamation"></i>
-        <p><strong>NOTA:</strong> Si el modelo es un <strong>iPhone 11 o más actual</strong>, o un <strong>Samsung S21 o más actual de su línea de gama alta</strong>, al realizar el corte de pantalla se añade automáticamente el corte para la <strong>cámara trasera</strong>.</p>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">08</span>
-        <div class="ps-body">
-          <p>Dar clic en <strong>Aceptar</strong>. La app abrirá automáticamente la cámara para <strong>escanear el código QR</strong> que le indica a la máquina cómo realizar el corte.</p>
-        </div>
-      </div>
- 
-      <!-- CATEGORÍA: Colocación en máquina -->
-      <div class="proceso-category-header">
-        <div class="cat-line"></div>
-        <span class="cat-label"><i class="fas fa-layer-group" style="margin-right:6px"></i>Colocación del polímero</span>
-        <div class="cat-line"></div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">09</span>
-        <div class="ps-body">
-          <p>Colocar el polímero en la <strong>planilla especial de corte</strong>: medida <em>Small</em> para celular, medida <em>Extra Large</em> para tablet.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">10</span>
-        <div class="ps-body">
-          <p><strong>Fijar el polímero con la espátula</strong> a la planilla para evitar que se desprenda al introducirla en la máquina.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">11</span>
-        <div class="ps-body">
-          <p>Orientación del polímero en la planilla: si es <strong>Transparente</strong> → código QR hacia <em>abajo</em>. Si es <strong>Privacidad</strong> → código QR hacia <em>arriba</em> y retirar la protección extra antes de colocarlo.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">12</span>
-        <div class="ps-body">
-          <p>Alinear los <strong>rodillos de la máquina</strong> con las líneas de la planilla. Colocarla inclinada y presionar la flecha <em>↑</em> — la máquina la jalará automáticamente.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">13</span>
-        <div class="ps-body">
-          <p>Seguir los pasos de la app hasta llegar a <strong>"Realizar corte"</strong> y dar clic en el recuadro amarillo con la leyenda <em>"Cortar"</em>.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-nota">
-        <i class="fas fa-triangle-exclamation"></i>
-        <p><strong>NOTA:</strong> Si el corte se interrumpe, se pierde conexión o el QR se quema, se debe continuar el proceso <strong>por medio de un Token</strong>.</p>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">14</span>
-        <div class="ps-body">
-          <p>Esperar a que la máquina finalice el corte. Para retirar la planilla, presionar el botón con flecha <em>↓</em>.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">15</span>
-        <div class="ps-body">
-          <p><strong>Despegar el polímero de la planilla</strong> con cuidado, sin forzarlo.</p>
-        </div>
-      </div>
- 
-      <!-- CATEGORÍA: Instalación en el equipo -->
-      <div class="proceso-category-header">
-        <div class="cat-line"></div>
-        <span class="cat-label"><i class="fas fa-mobile-screen-button" style="margin-right:6px"></i>Aplicación al equipo</span>
-        <div class="cat-line"></div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">16</span>
-        <div class="ps-body">
-          <p><strong>Limpiar el celular</strong> con alcohol isopropílico y un paño limpio para preparar la superficie.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">17</span>
-        <div class="ps-body">
-          <p>Rociar las <strong>yemas de los dedos con gel instalador</strong> antes de tocar el polímero, para evitar dejar huellas en la superficie.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">18</span>
-        <div class="ps-body">
-          <p>Retirar el polímero y <strong>rociar toda la superficie del celular</strong> donde se aplicará, con el gel instalador.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">19</span>
-        <div class="ps-body">
-          <p>Colocar el polímero sobre el celular, <strong>centrándolo correctamente</strong> antes de presionar.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">20</span>
-        <div class="ps-body">
-          <p>Con la <strong>espátula</strong>, pegar el polímero partiendo de la <em>mitad hacia la parte inferior</em>, retirando el exceso de gel instalador.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">21</span>
-        <div class="ps-body">
-          <p>Repetir el mismo procedimiento ahora de la <strong>mitad hacia la parte superior</strong> del celular.</p>
-        </div>
-      </div>
- 
-      <!-- CATEGORÍA: Secado y entrega -->
-      <div class="proceso-category-header">
-        <div class="cat-line"></div>
-        <span class="cat-label"><i class="fas fa-wind" style="margin-right:6px"></i>Secado y entrega</span>
-        <div class="cat-line"></div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">22</span>
-        <div class="ps-body">
-          <p>Usar un <strong>trapo</strong> para cubrir por completo el celular y retirar todo el exceso de gel instalador.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">23</span>
-        <div class="ps-body">
-          <p>Usar la <strong>secadora</strong> para agilizar el secado: aplicar calor en la pantalla por <em>aprox. 1 minuto</em> a una distancia de <em>aprox. 15 cm</em>.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-nota">
-        <i class="fas fa-circle-info" style="color: var(--cyan)"></i>
-        <p><strong>NOTA:</strong> Cuando el gel instalador está fresco se ven líneas en la pantalla — estas <strong>desaparecen una vez que el gel termina de secar</strong>. Es completamente normal.</p>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">24</span>
-        <div class="ps-body">
-          <p><strong>Colocar el case al celular</strong> para proteger el polímero recién instalado.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">25</span>
-        <div class="ps-body">
-          <p>Indicar al cliente que durante las siguientes <strong>2 horas</strong> debe evitar colocar su celular en bolsillo, mochila o bolsa, ya que el gel tarda alrededor de <em>1 hora</em> en secar por completo.</p>
-        </div>
-      </div>
- 
-      <div class="proceso-step">
-        <span class="ps-num">26</span>
-        <div class="ps-body">
-          <p><strong>Limpiar el celular</strong> y entregarlo al cliente en perfectas condiciones.</p>
-        </div>
-      </div>
+    </div>
+  </div>
+
+</div>
  
     </div>
   </section>
