@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Innovación Móvil — Cobro en Protectores de Pantalla</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+:root {
+  --bg:        #050c17;
+  --bg2:       #080f1e;
+  --surface:   #0f1d30;
+  --surface2:  #162236;
+  --border:    rgba(0,200,255,0.12);
+  --cyan:      #00d4ff;
+  --cyan2:     #00ffcc;
+  --purple:    #7b4fff;
+  --orange:    #ff7b00;
+  --green:     #00e676;
+  --red:       #ff4444;
+  --yellow:    #f0c040;
+  --text:      #e8f4ff;
+  --text-muted:#7a9ab8;
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow:    0 8px 40px rgba(0,212,255,0.08);
+  --glow-cyan: 0 0 30px rgba(0,212,255,0.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px}
+
+/* ---- NAVBAR ---- */
+.navbar{position:sticky;top:0;z-index:900;display:flex;align-items:center;gap:2rem;padding:1rem 4%;background:rgba(5,12,23,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-brand{display:flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:1.1rem}
+.brand-icon{font-size:1.4rem;color:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
+.brand-text strong{color:var(--cyan)}
+.nav-links{display:flex;gap:1.8rem;margin-left:auto}
+.nav-links a{font-size:.82rem;font-weight:600;letter-spacing:.04em;color:var(--text-muted);transition:color .2s;text-transform:uppercase}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{margin-left:1rem;padding:8px 20px;background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);font-family:var(--font-head);font-size:.72rem;font-weight:600;letter-spacing:.08em;border-radius:50px;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.nav-cta:hover{background:var(--cyan);color:var(--bg);box-shadow:var(--glow-cyan)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:transparent;border:none;cursor:pointer;padding:6px;margin-left:.5rem}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--cyan);border-radius:2px;transition:all .3s}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---- HERO ---- */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:6rem 4% 4rem;overflow:hidden;gap:4rem}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:50px 50px;z-index:0}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.hero-glow--1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,255,.15),transparent 70%);top:-100px;left:-100px}
+.hero-glow--2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,68,68,.12),transparent 70%);bottom:-80px;right:5%}
+.hero-content{position:relative;z-index:1;flex:1;max-width:580px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem}
+.dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hero-title{font-family:var(--font-head);font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.2rem}
+.gradient-text{background:linear-gradient(90deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gradient-text--warn{background:linear-gradient(90deg,#ff7b00,#ff4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1rem;color:var(--text-muted);max-width:480px;margin-bottom:2rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:.75rem;font-weight:700;letter-spacing:.08em;padding:14px 28px;border-radius:50px;transition:all .25s;cursor:pointer;border:none}
+.btn--primary{background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);box-shadow:0 4px 25px rgba(0,212,255,.35)}
+.btn--primary:hover{transform:translateY(-3px);box-shadow:0 8px 35px rgba(0,212,255,.5)}
+.btn--ghost{background:transparent;border:1.5px solid var(--border);color:var(--text-muted)}
+.btn--ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-stats{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{display:block;font-family:var(--font-head);font-size:1.6rem;font-weight:800;color:var(--cyan);line-height:1}
+.stat-num--warn{color:var(--red)}
+.stat-label{font-size:.72rem;color:var(--text-muted);letter-spacing:.04em}
+.stat-sep{width:1px;height:36px;background:var(--border)}
+
+/* ---- HERO VISUAL ---- */
+.hero-visual{position:relative;flex:1;display:flex;justify-content:center;align-items:center;min-height:400px}
+.shield-mockup{position:relative;z-index:2;width:180px;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.shield-icon{font-size:7rem;color:var(--cyan);filter:drop-shadow(0 0 30px rgba(0,212,255,.6));position:relative}
+.shield-icon .warning-dot{position:absolute;top:10px;right:0;width:28px;height:28px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;border:2px solid var(--bg);animation:warnPulse 1.5s ease-in-out infinite}
+@keyframes warnPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,68,68,.4)}50%{box-shadow:0 0 0 8px rgba(255,68,68,0)}}
+.shield-label{font-family:var(--font-head);font-size:.6rem;letter-spacing:.14em;color:var(--cyan2);text-transform:uppercase}
+.orbit{position:absolute;border-radius:50%;border:1px solid rgba(0,212,255,.1);animation:spin linear infinite}
+.orbit--1{width:300px;height:300px;animation-duration:12s}
+.orbit--2{width:440px;height:440px;animation-duration:20s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---- SECTIONS ---- */
+.section{padding:6rem 4%}
+.section--dark{background:var(--bg2)}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,212,255,.3);padding:4px 14px;border-radius:50px;margin-bottom:1rem}
+.section-tag--warn{color:var(--red);border-color:rgba(255,68,68,.35)}
+.section-tag--orange{color:var(--orange);border-color:rgba(255,123,0,.35)}
+.section-header h2{font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:.8rem}
+.section-header p{color:var(--text-muted);max-width:580px;margin:0 auto;font-weight:300}
+
+/* ---- INTRO BANNER ---- */
+.intro-banner{
+  max-width:900px;margin:0 auto 4rem;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;
+}
+.intro-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.6rem 1.4rem;text-align:center;
+  transition:transform .3s,border-color .3s;
+}
+.intro-card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.3)}
+.intro-card i{font-size:1.8rem;margin-bottom:.8rem;display:block}
+.intro-card--reduce i{color:var(--green)}
+.intro-card--evitar i{color:var(--cyan)}
+.intro-card--profesional i{color:var(--orange)}
+.intro-card h4{font-family:var(--font-head);font-size:.82rem;font-weight:700;margin-bottom:.4rem}
+.intro-card p{font-size:.82rem;color:var(--text-muted);font-weight:300}
+
+/* ---- CRITERIOS CARDS ---- */
+.criterios-list{
+  display:flex;flex-direction:column;gap:1.8rem;
+  max-width:900px;margin:0 auto;
+}
+.criterio-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;
+  opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;
+}
+.criterio-card.visible{opacity:1;transform:translateY(0)}
+.criterio-card--green{border-color:rgba(0,230,118,.25)}
+.criterio-card--orange{border-color:rgba(255,123,0,.25)}
+.criterio-card--purple{border-color:rgba(123,79,255,.25)}
+
+.criterio-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.4rem 1.8rem;
+  border-bottom:1px solid var(--border);
+}
+.criterio-num{
+  font-family:var(--font-head);font-size:1.8rem;font-weight:900;
+  line-height:1;min-width:44px;
+}
+.criterio-card--green .criterio-num{color:rgba(0,230,118,.2)}
+.criterio-card--orange .criterio-num{color:rgba(255,123,0,.2)}
+.criterio-card--purple .criterio-num{color:rgba(123,79,255,.2)}
+.criterio-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+}
+.criterio-card--green .criterio-icon{background:rgba(0,230,118,.1);color:var(--green);border:1px solid rgba(0,230,118,.2)}
+.criterio-card--orange .criterio-icon{background:rgba(255,123,0,.1);color:var(--orange);border:1px solid rgba(255,123,0,.2)}
+.criterio-card--purple .criterio-icon{background:rgba(123,79,255,.1);color:#b08aff;border:1px solid rgba(123,79,255,.2)}
+.criterio-title{font-family:var(--font-head);font-size:.92rem;font-weight:700;color:var(--text)}
+
+.criterio-body{padding:1.6rem 1.8rem}
+.criterio-body p{font-size:.9rem;color:var(--text-muted);font-weight:300;margin-bottom:1.2rem;line-height:1.8}
+.criterio-body strong{color:var(--text);font-weight:600}
+
+.sub-label{
+  font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:.8rem;display:flex;align-items:center;gap:6px;
+}
+.criterio-card--green .sub-label{color:var(--green)}
+.criterio-card--orange .sub-label{color:var(--orange)}
+.criterio-card--purple .sub-label{color:#b08aff}
+
+.tips-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.tip-row{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:.85rem;color:var(--text-muted);font-weight:300;
+  padding:8px 12px;border-radius:8px;
+  background:rgba(0,212,255,.03);border:1px solid rgba(0,212,255,.07);
+}
+.criterio-card--green .tip-row{background:rgba(0,230,118,.03);border-color:rgba(0,230,118,.08)}
+.criterio-card--orange .tip-row{background:rgba(255,123,0,.03);border-color:rgba(255,123,0,.08)}
+.criterio-card--purple .tip-row{background:rgba(123,79,255,.04);border-color:rgba(123,79,255,.1)}
+.tip-row i{font-size:.75rem;margin-top:4px;flex-shrink:0}
+.criterio-card--green .tip-row i{color:var(--green)}
+.criterio-card--orange .tip-row i{color:var(--orange)}
+.criterio-card--purple .tip-row i{color:#b08aff}
+
+.alert-tip{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 14px;border-radius:10px;
+  font-size:.83rem;font-weight:300;
+  margin-top:.8rem;
+}
+.alert-tip--green{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);color:var(--green)}
+.alert-tip--orange{background:rgba(255,123,0,.07);border:1px solid rgba(255,123,0,.2);color:var(--orange)}
+.alert-tip--purple{background:rgba(123,79,255,.07);border:1px solid rgba(123,79,255,.2);color:#b08aff}
+.alert-tip i{font-size:.9rem;flex-shrink:0;margin-top:2px}
+
+/* ---- NO GARANTIA ---- */
+.nogarantia-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;
+  max-width:1000px;margin:0 auto;
+}
+.no-card{
+  background:var(--surface);border:1px solid rgba(255,68,68,.18);border-radius:var(--radius);
+  padding:1.2rem 1.4rem;
+  display:flex;align-items:flex-start;gap:12px;
+  opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;
+}
+.no-card.visible{opacity:1;transform:translateY(0)}
+.no-card:hover{border-color:rgba(255,68,68,.35);background:rgba(255,68,68,.04)}
+.no-card i{color:var(--red);font-size:1rem;flex-shrink:0;margin-top:3px}
+.no-card p{font-size:.83rem;color:var(--text-muted);font-weight:300;line-height:1.6}
+.no-card p strong{color:var(--text);font-weight:600}
+
+/* ---- CORTES NO UTILIZADOS ---- */
+.cortados-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+  max-width:900px;margin:0 auto;
+}
+.cortados-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.8rem 1.6rem;
+  opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;
+}
+.cortados-card.visible{opacity:1;transform:translateY(0)}
+.cortados-card--examples{border-color:rgba(255,123,0,.25)}
+.cortados-card--warning{border-color:rgba(255,68,68,.25)}
+.cortados-card h4{font-family:var(--font-head);font-size:.85rem;font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:10px}
+.cortados-card h4 i{font-size:1rem}
+.cortados-card--examples h4 i{color:var(--orange)}
+.cortados-card--warning h4 i{color:var(--red)}
+
+.example-list,.warn-list{display:flex;flex-direction:column;gap:.5rem}
+.example-item,.warn-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:.83rem;color:var(--text-muted);font-weight:300;
+  padding:8px 12px;border-radius:8px;
+}
+.example-item{background:rgba(255,123,0,.04);border:1px solid rgba(255,123,0,.1)}
+.example-item i{color:var(--orange);font-size:.75rem;margin-top:4px;flex-shrink:0}
+.warn-item{background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1)}
+.warn-item i{color:var(--red);font-size:.75rem;margin-top:4px;flex-shrink:0}
+
+.cobro-box{
+  max-width:900px;margin:1.5rem auto 0;
+  background:linear-gradient(135deg,rgba(255,68,68,.07),rgba(255,123,0,.04));
+  border:1px solid rgba(255,68,68,.25);border-radius:var(--radius-lg);
+  padding:1.6rem 2rem;
+  display:flex;gap:1.2rem;align-items:flex-start;
+}
+.cobro-box i{font-size:1.4rem;color:var(--red);flex-shrink:0;margin-top:2px}
+.cobro-box p{font-size:.88rem;color:var(--text-muted);font-weight:300;line-height:1.8}
+.cobro-box strong{color:var(--text);font-weight:600}
+
+/* ---- ENVIO MERMAS ---- */
+.mermas-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;
+  max-width:900px;margin:0 auto;
+}
+.merma-card{
+  background:var(--surface);border:1px solid rgba(240,192,64,.18);border-radius:var(--radius);
+  padding:1.2rem 1.4rem;
+  display:flex;align-items:flex-start;gap:12px;
+  opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;
+}
+.merma-card.visible{opacity:1;transform:translateY(0)}
+.merma-card:hover{border-color:rgba(240,192,64,.35);background:rgba(240,192,64,.03)}
+.merma-card i{color:var(--yellow);font-size:1rem;flex-shrink:0;margin-top:3px}
+.merma-card p{font-size:.83rem;color:var(--text-muted);font-weight:300;line-height:1.6}
+
+/* ---- CONSEJO FINAL ---- */
+.consejo-section{padding:5rem 4%}
+.consejo-box{
+  max-width:800px;margin:0 auto;text-align:center;
+  background:linear-gradient(145deg,rgba(0,212,255,.06),rgba(0,255,204,.03));
+  border:1px solid rgba(0,212,255,.25);border-radius:var(--radius-lg);
+  padding:3rem 2.5rem;
+}
+.consejo-box .consejo-icon{font-size:3rem;color:var(--cyan);filter:drop-shadow(0 0 15px rgba(0,212,255,.5));margin-bottom:1.2rem}
+.consejo-box h3{font-family:var(--font-head);font-size:1.1rem;font-weight:800;margin-bottom:1.5rem}
+.consejo-items{
+  display:flex;flex-direction:column;gap:.8rem;text-align:left;margin-bottom:1.5rem;
+}
+.consejo-item{
+  display:flex;align-items:center;gap:12px;
+  font-size:.88rem;color:var(--text-muted);font-weight:300;
+  padding:10px 16px;border-radius:10px;
+  background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);
+}
+.consejo-item i{color:var(--cyan2);font-size:.8rem;flex-shrink:0}
+.consejo-box .consejo-footer{font-size:.82rem;color:var(--text-muted);font-weight:300;font-style:italic}
+
+/* ---- ANIM ---- */
+.hero-content,.hero-visual{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.hero-content.visible{opacity:1;transform:translateY(0);transition-delay:.1s}
+.hero-visual.visible{opacity:1;transform:translateY(0);transition-delay:.3s}
+.intro-card,.consejo-box{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.intro-card.visible,.consejo-box.visible{opacity:1;transform:translateY(0)}
+
+/* ---- FOOTER ---- */
+.footer{position:relative;background:var(--bg2);border-top:1px solid var(--border);padding:4rem 4% 2rem;overflow:hidden}
+.footer-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:200px;background:radial-gradient(ellipse,rgba(0,212,255,.06),transparent 70%)}
+.footer-content{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;position:relative}
+.footer-brand .brand-text{font-family:var(--font-head);font-size:1.1rem}
+.footer-brand p{color:var(--text-muted);font-size:.83rem;margin-top:.5rem;font-weight:300}
+.footer-links h5{font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--cyan);text-transform:uppercase;margin-bottom:1rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:.82rem;color:var(--text-muted);transition:color .2s}
+.footer-links a:hover{color:var(--cyan)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;font-size:.75rem;color:var(--text-muted)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:768px){
+  .navbar{padding:.8rem 4%;gap:.8rem;flex-wrap:wrap}
+  .nav-toggle{display:flex;margin-left:auto}
+  .nav-cta{order:3;font-size:.68rem;padding:7px 14px}
+  .nav-links{display:none;flex-direction:column;width:100%;order:4;gap:0;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-top:.3rem}
+  .nav-links.open{display:flex}
+  .nav-links li a{display:block;padding:.85rem 1.2rem;border-bottom:1px solid var(--border);font-size:.82rem}
+  .nav-links li:last-child a{border-bottom:none}
+  .hero{flex-direction:column;padding-top:3.5rem;min-height:auto;gap:2rem;text-align:center}
+  .hero-content{max-width:100%}
+  .hero-actions{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-visual{min-height:220px}
+  .intro-banner{grid-template-columns:1fr}
+  .cortados-layout{grid-template-columns:1fr}
+  .footer-content{grid-template-columns:1fr;gap:1.5rem}
+  .section{padding:4rem 4%}
+  .consejo-section{padding:3rem 4%}
+  .cobro-box{flex-direction:column;gap:.8rem}
+}
+@media(max-width:480px){
+  .hero-title{font-size:2rem}
+  .section-header h2{font-size:1.6rem}
+}
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="brand-icon">⬡</span>
+    <span class="brand-text">Innovación<strong>Móvil</strong></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#criterios">Criterios</a></li>
+    <li><a href="#no-garantia">No Garantía</a></li>
+    <li><a href="#cortados">Cortados</a></li>
+    <li><a href="#mermas">Mermas</a></li>
+    <li><a href="#consejo">Consejo</a></li>
+  </ul>
+  <button class="nav-cta">Leer Políticas</button>
+  <button class="nav-toggle" id="navToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow hero-glow--1"></div>
+  <div class="hero-glow hero-glow--2"></div>
+  <div class="hero-content">
+    <p class="hero-tag"><span class="dot"></span> Políticas Internas</p>
+    <h1 class="hero-title">
+      Cobro en<br/>
+      <span class="gradient-text--warn">Protectores</span><br/>
+      de Pantalla
+    </h1>
+    <p class="hero-desc">
+      Lineamientos para reducir mermas, evitar cobros innecesarios y trabajar de manera más ordenada. Conocerlos te protege y protege tu trabajo.
+    </p>
+    <div class="hero-actions">
+      <a href="#criterios" class="btn btn--primary">Ver Criterios <i class="fas fa-arrow-right"></i></a>
+      <a href="#no-garantia" class="btn btn--ghost">¿Qué no aplica?</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">5</span><span class="stat-label">Errores gratis nuevo ingreso</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><span class="stat-num stat-num--warn">0</span><span class="stat-label">Excepciones sin evidencia</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><span class="stat-num">24h</span><span class="stat-label">Para reportar mermas</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="shield-mockup">
+      <div class="shield-icon">
+        <i class="fas fa-shield-halved"></i>
+        <div class="warning-dot"><i class="fas fa-exclamation"></i></div>
+      </div>
+      <span class="shield-label">Criterios de Cobro</span>
+    </div>
+    <div class="orbit orbit--1"></div>
+    <div class="orbit orbit--2"></div>
+  </div>
+</section>
+
+<!-- ===== INTRO ===== -->
+<section class="section section--dark">
+  <div class="section-header">
+    <span class="section-tag">Objetivo</span>
+    <h2>¿Para qué sirven <span class="gradient-text">estos criterios</span>?</h2>
+    <p>No buscan castigar. Buscan ayudarte a trabajar mejor y proteger tus resultados.</p>
+  </div>
+  <div class="intro-banner">
+    <div class="intro-card intro-card--reduce">
+      <i class="fas fa-chart-line-down"></i>
+      <h4>Reducir mermas</h4>
+      <p>Cada corte incorrecto es una pieza que no puede venderse. Conocer las reglas minimiza el desperdicio.</p>
+    </div>
+    <div class="intro-card intro-card--evitar">
+      <i class="fas fa-shield-halved"></i>
+      <h4>Evitar cobros</h4>
+      <p>Seguir el proceso correcto desde el inicio te protege de cargos que podrían afectar tu desempeño.</p>
+    </div>
+    <div class="intro-card intro-card--profesional">
+      <i class="fas fa-star"></i>
+      <h4>Trabajar profesional</h4>
+      <p>Revisión, comunicación y reporte oportuno son las tres claves de un colaborador de alto rendimiento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CRITERIOS IMPORTANTES ===== -->
+<section class="section" id="criterios">
+  <div class="section-header">
+    <span class="section-tag">Casos Clave</span>
+    <h2>Criterios <span class="gradient-text">Importantes</span></h2>
+    <p>Estos son los casos más comunes que debes tener siempre presentes al momento de instalar un protector.</p>
+  </div>
+
+  <div class="criterios-list">
+
+    <!-- CRITERIO 1 -->
+    <div class="criterio-card criterio-card--green">
+      <div class="criterio-header">
+        <span class="criterio-num">01</span>
+        <div class="criterio-icon"><i class="fas fa-mobile-screen-button"></i></div>
+        <span class="criterio-title">Verificar siempre el modelo del equipo</span>
+      </div>
+      <div class="criterio-body">
+        <p>Un mal corte por <strong>no revisar correctamente el modelo del teléfono</strong> puede pasar a cobro. Este es el error más común y también el más fácil de evitar.</p>
+        <p class="sub-label"><i class="fas fa-check-circle"></i> Recomendaciones</p>
+        <div class="tips-list">
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> Antes de realizar cualquier corte, revisa el modelo exacto en <strong>Ajustes → Acerca del teléfono</strong>.</div>
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> No asumas el modelo por la apariencia externa del equipo.</div>
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> Si tienes duda entre dos modelos similares, consulta antes de cortar.</div>
+        </div>
+        <div class="alert-tip alert-tip--green">
+          <i class="fas fa-lightbulb"></i>
+          Una revisión rápida puede evitar una merma y proteger tu record.
+        </div>
+      </div>
+    </div>
+
+    <!-- CRITERIO 2 -->
+    <div class="criterio-card criterio-card--orange">
+      <div class="criterio-header">
+        <span class="criterio-num">02</span>
+        <div class="criterio-icon"><i class="fas fa-user-clock"></i></div>
+        <span class="criterio-title">Colaboradores de nuevo ingreso</span>
+      </div>
+      <div class="criterio-body">
+        <p>Durante el <strong>primer mes de práctica</strong>, el colaborador cuenta con un margen de aprendizaje sin cobro inmediato.</p>
+        <p class="sub-label"><i class="fas fa-info-circle"></i> Condiciones</p>
+        <div class="tips-list">
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> Tienes hasta <strong>5 oportunidades de error</strong> sin cobro durante el primer mes.</div>
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> A partir de la <strong>sexta equivocación</strong> sí puede aplicarse el cobro.</div>
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> Si tienes dudas, <strong>solicita apoyo antes</strong> de realizar el corte — nunca después.</div>
+        </div>
+        <div class="alert-tip alert-tip--orange">
+          <i class="fas fa-graduation-cap"></i>
+          El objetivo es ayudarte a aprender correctamente el proceso desde el inicio.
+        </div>
+      </div>
+    </div>
+
+    <!-- CRITERIO 3 -->
+    <div class="criterio-card criterio-card--purple">
+      <div class="criterio-header">
+        <span class="criterio-num">03</span>
+        <div class="criterio-icon"><i class="fas fa-camera"></i></div>
+        <span class="criterio-title">Defectos de fábrica en hidrogel</span>
+      </div>
+      <div class="criterio-body">
+        <p>Si detectas defectos en hidrogel antiblu, transparente o cualquier otro tipo, <strong>debes actuar de inmediato</strong>.</p>
+        <p class="sub-label"><i class="fas fa-list-check"></i> Procedimiento</p>
+        <div class="tips-list">
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> Toma <strong>evidencia fotográfica</strong> del defecto antes de continuar.</div>
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> Reporta <strong>inmediatamente</strong> en el grupo correspondiente de comunicación.</div>
+          <div class="tip-row"><i class="fas fa-chevron-right"></i> No intentes instalar un hidrogel con defecto visible — el cliente lo rechazará.</div>
+        </div>
+        <div class="alert-tip alert-tip--purple">
+          <i class="fas fa-triangle-exclamation"></i>
+          Si no existe evidencia del defecto, el material puede pasar a cobro aunque sea falla de fábrica.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== NO GARANTÍA ===== -->
+<section class="section section--dark" id="no-garantia">
+  <div class="section-header">
+    <span class="section-tag section-tag--warn">Cobro Directo</span>
+    <h2>Casos que <span style="background:linear-gradient(90deg,#ff4444,#ff7b00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">NO aplican</span> como garantía</h2>
+    <p>Los siguientes casos pueden pasar directamente a cobro sin excepción. Conócelos para evitarlos.</p>
+  </div>
+
+  <div class="nogarantia-grid">
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>El cliente dijo que <strong>"no le gustó cómo se veía"</strong> el protector.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p><strong>No se explicó correctamente</strong> el acabado del hidrogel o polímero antes de instalarlo.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>La <strong>huella no funcionó</strong> y no se informó previamente al cliente sobre la compatibilidad.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>El protector <strong>no cubrió correctamente los bordes</strong> y no se mostró previamente el tipo de corte.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>La <strong>máquina realizó mal el corte</strong> y no se envió evidencia fotográfica del error.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>El <strong>corte se deformó</strong> y no fue reportado de manera oportuna.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>El hidrogel <strong>tenía manchas</strong> y no se reportó antes de intentar instalarlo.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>Se realizó un <strong>mal corte por no verificar el modelo</strong> del equipo correctamente.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>La <strong>funda levantó la mica</strong> por no revisar compatibilidades entre corte y funda del cliente.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p><strong>Instalación incorrecta o descuidada</strong> que resulta en burbujas, polvo o mala adhesión.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p>Las <strong>mermas no fueron enviadas</strong> al día siguiente según el procedimiento establecido.</p></div>
+    <div class="no-card"><i class="fas fa-times-circle"></i><p><strong>No se siguió el procedimiento correcto</strong> de envío a almacén en tiempo y forma.</p></div>
+  </div>
+</section>
+
+<!-- ===== HIDROGELES CORTADOS ===== -->
+<section class="section" id="cortados">
+  <div class="section-header">
+    <span class="section-tag section-tag--orange">Reporte Obligatorio</span>
+    <h2>Hidrogeles cortados <span class="gradient-text">no utilizados</span></h2>
+    <p>Si un hidrogel fue cortado pero no utilizado, debe reportarse de inmediato para poder asignarle fecha de venta.</p>
+  </div>
+
+  <div class="cortados-layout">
+    <div class="cortados-card cortados-card--examples">
+      <h4><i class="fas fa-list"></i> ¿Cuándo reportar?</h4>
+      <div class="example-list">
+        <div class="example-item"><i class="fas fa-angle-right"></i> Corte incorrecto de modelo</div>
+        <div class="example-item"><i class="fas fa-angle-right"></i> Error de talla o tipo de corte</div>
+        <div class="example-item"><i class="fas fa-angle-right"></i> Cliente canceló la instalación</div>
+        <div class="example-item"><i class="fas fa-angle-right"></i> Hidrogel dañado durante el proceso</div>
+        <div class="example-item"><i class="fas fa-angle-right"></i> Cualquier situación donde el hidrogel ya no pueda venderse como nuevo</div>
+      </div>
+    </div>
+    <div class="cortados-card cortados-card--warning">
+      <h4><i class="fas fa-triangle-exclamation"></i> ¿Qué pasa si NO se reporta?</h4>
+      <div class="warn-list">
+        <div class="warn-item"><i class="fas fa-angle-right"></i> Si el hidrogel no se reporta y solo se envía a almacén, el costo puede asignarse al <strong>responsable directo</strong>.</div>
+        <div class="warn-item"><i class="fas fa-angle-right"></i> Si se detecta en <strong>auditoría posterior</strong>, el cargo puede aplicarse a la sucursal.</div>
+        <div class="warn-item"><i class="fas fa-angle-right"></i> Si no puede identificarse quién realizó el corte, <strong>la sucursal asume el costo</strong>.</div>
+        <div class="warn-item"><i class="fas fa-angle-right"></i> Si encuentras un hidrogel ya cortado sin dueño, <strong>repórtalo inmediatamente</strong> aunque no seas quien lo cortó.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cobro-box">
+    <i class="fas fa-circle-exclamation"></i>
+    <p>
+      El reporte de hidrogeles cortados permite asignar una <strong>fecha para intentar vender esa pieza</strong> y así evitar mermas innecesarias. Un reporte oportuno puede convertir un error en una oportunidad de venta.
+    </p>
+  </div>
+</section>
+
+<!-- ===== MERMAS ===== -->
+<section class="section section--dark" id="mermas">
+  <div class="section-header">
+    <span class="section-tag" style="color:var(--yellow);border-color:rgba(240,192,64,.35)">Envío Correcto</span>
+    <h2>Envío de <span class="gradient-text">Mermas y Garantías</span></h2>
+    <p>Las mermas y garantías deben enviarse correctamente selladas y registradas. Un envío incorrecto puede generar cobro.</p>
+  </div>
+
+  <div class="mermas-grid">
+    <div class="merma-card"><i class="fas fa-triangle-exclamation"></i><p>Las mermas <strong>no llegan a almacén</strong> o no hay registro de salida desde sucursal.</p></div>
+    <div class="merma-card"><i class="fas fa-triangle-exclamation"></i><p>Se detecta que <strong>nunca salieron de sucursal</strong> aunque se dijo haberlas enviado.</p></div>
+    <div class="merma-card"><i class="fas fa-triangle-exclamation"></i><p>El paquete <strong>no fue enviado sellado</strong> correctamente, lo que impide validar su contenido.</p></div>
+    <div class="merma-card"><i class="fas fa-triangle-exclamation"></i><p><strong>No existe ficha de envío</strong> ni comprobante del despacho del paquete.</p></div>
+    <div class="merma-card"><i class="fas fa-triangle-exclamation"></i><p><strong>No hay registro o evidencia</strong> del envío en el grupo de comunicación correspondiente.</p></div>
+  </div>
+
+  <div style="max-width:900px;margin:1.5rem auto 0;background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.25);border-radius:var(--radius-lg);padding:1.4rem 1.8rem;display:flex;gap:1rem;align-items:center;">
+    <i class="fas fa-seal-exclamation" style="color:var(--yellow);font-size:1.3rem;flex-shrink:0"></i>
+    <p style="font-size:.88rem;color:var(--text-muted);font-weight:300;line-height:1.7"><strong style="color:var(--text)">Todo envío debe ir correctamente sellado</strong> para evitar pérdidas o problemas durante la validación en almacén. El sellado es tu garantía de que el contenido llegó completo.</p>
+  </div>
+</section>
+
+<!-- ===== CONSEJO FINAL ===== -->
+<section class="consejo-section" id="consejo">
+  <div class="consejo-box">
+    <div class="consejo-icon"><i class="fas fa-lightbulb"></i></div>
+    <h3>Consejo Final</h3>
+    <div class="consejo-items">
+      <div class="consejo-item"><i class="fas fa-check-circle"></i> <span><strong>Verificar correctamente el modelo</strong> antes de realizar cualquier corte</span></div>
+      <div class="consejo-item"><i class="fas fa-check-circle"></i> <span><strong>Explicar bien al cliente</strong> el tipo de protector, el acabado y las limitaciones antes de instalar</span></div>
+      <div class="consejo-item"><i class="fas fa-check-circle"></i> <span><strong>Revisar compatibilidades</strong> entre el tipo de corte y la funda del cliente</span></div>
+      <div class="consejo-item"><i class="fas fa-check-circle"></i> <span><strong>Reportar cualquier anomalía inmediatamente</strong> con evidencia fotográfica</span></div>
+      <div class="consejo-item"><i class="fas fa-check-circle"></i> <span><strong>Enviar correctamente</strong> las mermas y garantías selladas y registradas</span></div>
+    </div>
+    <p class="consejo-footer">Trabajar con atención y comunicación ayuda a reducir mermas y mejora tus resultados.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-glow"></div>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">Innovación<strong> Móvil</strong></span>
+      <p>La mejor protección y accesorios para cada dispositivo.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Navegación</h5>
+      <a href="#criterios">Criterios importantes</a>
+      <a href="#no-garantia">No aplica garantía</a>
+      <a href="#cortados">Cortados no utilizados</a>
+      <a href="#mermas">Envío de mermas</a>
+      <a href="#consejo">Consejo final</a>
+    </div>
+    <div class="footer-links">
+      <h5>Recursos</h5>
+      <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank">Material de apoyo</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Innovación Móvil — Todos los derechos reservados. | Criterios de Cobro en Protectores de Pantalla.</p>
+  </div>
+</footer>
+
+<script>
+// ---- Intersection Observer ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+function stagger(sel, base = 80) {
+  document.querySelectorAll(sel).forEach((el, i) => { el.dataset.delay = i * base; observer.observe(el); });
+}
+
+stagger('.criterio-card', 120);
+stagger('.no-card', 60);
+stagger('.cortados-card', 120);
+stagger('.merma-card', 80);
+stagger('.intro-card', 90);
+document.querySelectorAll('.hero-content,.hero-visual,.consejo-box').forEach(el => observer.observe(el));
+
+// ---- Active nav ----
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(l => { l.style.color = ''; if (l.getAttribute('href') === '#' + e.target.id) l.style.color = 'var(--cyan)'; });
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObs.observe(s));
+
+// ---- Navbar shrink ----
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => { navbar.style.padding = window.scrollY > 60 ? '0.6rem 4%' : '1rem 4%'; });
+
+// ---- CTA ----
+document.querySelector('.nav-cta').addEventListener('click', () => document.querySelector('#criterios').scrollIntoView({ behavior: 'smooth' }));
+
+// ---- Hamburger ----
+const navToggle = document.getElementById('navToggle');
+const navLinksList = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => { navToggle.classList.toggle('open'); navLinksList.classList.toggle('open'); });
+</script>
+</body>
+</html>
