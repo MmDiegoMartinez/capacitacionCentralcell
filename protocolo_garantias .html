@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Innovación Móvil — Protocolo de Garantías y Mermas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+:root {
+  --bg:        #050c17;
+  --bg2:       #080f1e;
+  --surface:   #0f1d30;
+  --surface2:  #162236;
+  --border:    rgba(0,200,255,0.12);
+  --cyan:      #00d4ff;
+  --cyan2:     #00ffcc;
+  --purple:    #7b4fff;
+  --orange:    #ff7b00;
+  --green:     #00e676;
+  --red:       #ff4444;
+  --yellow:    #f0c040;
+  --text:      #e8f4ff;
+  --text-muted:#7a9ab8;
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow:    0 8px 40px rgba(0,212,255,0.08);
+  --glow-cyan: 0 0 30px rgba(0,212,255,0.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px}
+
+/* ---- NAVBAR ---- */
+.navbar{position:sticky;top:0;z-index:900;display:flex;align-items:center;gap:2rem;padding:1rem 4%;background:rgba(5,12,23,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-brand{display:flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:1.1rem}
+.brand-icon{font-size:1.4rem;color:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
+.brand-text strong{color:var(--cyan)}
+.nav-links{display:flex;gap:1.6rem;margin-left:auto}
+.nav-links a{font-size:.8rem;font-weight:600;letter-spacing:.04em;color:var(--text-muted);transition:color .2s;text-transform:uppercase}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{margin-left:1rem;padding:8px 18px;background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);font-family:var(--font-head);font-size:.7rem;font-weight:600;letter-spacing:.08em;border-radius:50px;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.nav-cta:hover{background:var(--cyan);color:var(--bg);box-shadow:var(--glow-cyan)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:transparent;border:none;cursor:pointer;padding:6px;margin-left:.5rem}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--cyan);border-radius:2px;transition:all .3s}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---- HERO ---- */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:6rem 4% 4rem;overflow:hidden;gap:4rem}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:50px 50px;z-index:0}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.hero-glow--1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,255,.14),transparent 70%);top:-100px;left:-100px}
+.hero-glow--2{width:400px;height:400px;background:radial-gradient(circle,rgba(123,79,255,.13),transparent 70%);bottom:-80px;right:5%}
+.hero-content{position:relative;z-index:1;flex:1;max-width:580px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem}
+.dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hero-title{font-family:var(--font-head);font-size:clamp(2.1rem,4.2vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.2rem}
+.gradient-text{background:linear-gradient(90deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gradient-purple{background:linear-gradient(90deg,var(--purple),#b08aff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1rem;color:var(--text-muted);max-width:480px;margin-bottom:2rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:.75rem;font-weight:700;letter-spacing:.08em;padding:14px 28px;border-radius:50px;transition:all .25s;cursor:pointer;border:none}
+.btn--primary{background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);box-shadow:0 4px 25px rgba(0,212,255,.35)}
+.btn--primary:hover{transform:translateY(-3px);box-shadow:0 8px 35px rgba(0,212,255,.5)}
+.btn--ghost{background:transparent;border:1.5px solid var(--border);color:var(--text-muted)}
+.btn--ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-stats{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{display:block;font-family:var(--font-head);font-size:1.6rem;font-weight:800;color:var(--cyan);line-height:1}
+.stat-label{font-size:.7rem;color:var(--text-muted);letter-spacing:.04em}
+.stat-sep{width:1px;height:36px;background:var(--border)}
+
+/* ---- HERO VISUAL ---- */
+.hero-visual{position:relative;flex:1;display:flex;justify-content:center;align-items:center;min-height:400px}
+.garantia-mockup{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1rem;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.garantia-badge-main{
+  width:160px;height:160px;background:linear-gradient(160deg,#1a2d45,#0a1520);
+  border-radius:50%;border:2px solid rgba(0,212,255,.3);
+  box-shadow:var(--glow-cyan);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+}
+.garantia-badge-main i{font-size:3.5rem;color:var(--cyan);filter:drop-shadow(0 0 16px rgba(0,212,255,.6))}
+.garantia-badge-main span{font-family:var(--font-head);font-size:.5rem;letter-spacing:.14em;color:var(--cyan2);text-transform:uppercase}
+.months-ring{
+  display:flex;gap:.6rem;
+}
+.month-dot{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-size:.55rem;font-weight:800;color:var(--bg);
+  box-shadow:0 0 10px rgba(0,212,255,.4);
+  animation:monthPop .4s ease both;
+}
+.month-dot:nth-child(1){animation-delay:.1s}
+.month-dot:nth-child(2){animation-delay:.2s;background:linear-gradient(135deg,var(--purple),#b08aff);box-shadow:0 0 10px rgba(123,79,255,.4)}
+.month-dot:nth-child(3){animation-delay:.3s;background:linear-gradient(135deg,var(--cyan2),var(--green));box-shadow:0 0 10px rgba(0,255,204,.4)}
+@keyframes monthPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.orbit{position:absolute;border-radius:50%;border:1px solid rgba(0,212,255,.1);animation:spin linear infinite}
+.orbit--1{width:300px;height:300px;animation-duration:12s}
+.orbit--2{width:440px;height:440px;animation-duration:20s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---- SECTIONS ---- */
+.section{padding:6rem 4%}
+.section--dark{background:var(--bg2)}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,212,255,.3);padding:4px 14px;border-radius:50px;margin-bottom:1rem}
+.section-tag--purple{color:#b08aff;border-color:rgba(123,79,255,.35)}
+.section-tag--orange{color:var(--orange);border-color:rgba(255,123,0,.35)}
+.section-tag--green{color:var(--green);border-color:rgba(0,230,118,.35)}
+.section-header h2{font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:.8rem}
+.section-header p{color:var(--text-muted);max-width:580px;margin:0 auto;font-weight:300}
+
+/* ---- INTRO BANNER ---- */
+.intro-banner{
+  max-width:900px;margin:0 auto 3.5rem;
+  background:linear-gradient(135deg,rgba(0,212,255,.07),rgba(123,79,255,.04));
+  border:1px solid rgba(0,212,255,.25);border-radius:var(--radius-lg);
+  padding:1.8rem 2rem;display:flex;gap:1.2rem;align-items:flex-start;
+}
+.intro-banner i{font-size:1.6rem;color:var(--cyan);flex-shrink:0;margin-top:2px}
+.intro-banner p{font-size:.92rem;color:var(--text-muted);font-weight:300;line-height:1.8}
+.intro-banner strong{color:var(--text);font-weight:600}
+
+/* ---- PASOS GARANTÍA (accesorios) ---- */
+.pasos-list{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+.paso-item{
+  display:flex;gap:1.8rem;align-items:flex-start;
+  padding:2rem 0;border-bottom:1px solid var(--border);
+  opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;
+}
+.paso-item:last-child{border-bottom:none}
+.paso-item.visible{opacity:1;transform:translateY(0)}
+.paso-num-wrap{display:flex;flex-direction:column;align-items:center;gap:.4rem;flex-shrink:0}
+.paso-num{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--cyan);
+}
+.paso-connector{width:2px;flex:1;min-height:20px;background:linear-gradient(180deg,rgba(0,212,255,.2),transparent)}
+.paso-content{flex:1;padding-bottom:1rem}
+.paso-content h4{font-family:var(--font-head);font-size:.92rem;font-weight:700;margin-bottom:.6rem;color:var(--text)}
+.paso-content p{font-size:.87rem;color:var(--text-muted);font-weight:300;line-height:1.8;margin-bottom:.8rem}
+.paso-content strong{color:var(--text);font-weight:600}
+.paso-content em{color:var(--cyan);font-style:normal}
+
+/* ---- REQUISITOS GRID ---- */
+.req-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin:.8rem 0}
+.req-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:.82rem;color:var(--text-muted);font-weight:300;
+  padding:8px 12px;border-radius:9px;
+  background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);
+}
+.req-item i{color:var(--cyan);font-size:.7rem;flex-shrink:0}
+
+/* ---- EJEMPLOS CARDS ---- */
+.ejemplos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0}
+.ejemplo-card{
+  background:rgba(123,79,255,.06);border:1px solid rgba(123,79,255,.2);
+  border-radius:var(--radius);padding:1rem 1.2rem;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.ejemplo-card i{color:#b08aff;font-size:.9rem;flex-shrink:0;margin-top:3px}
+.ejemplo-card p{font-size:.82rem;color:var(--text-muted);font-weight:300;line-height:1.6}
+.ejemplo-card strong{color:var(--text);font-weight:600}
+
+/* ---- ALERTA BOXES ---- */
+.alert-box{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:1rem 1.4rem;border-radius:var(--radius);
+  font-size:.84rem;font-weight:300;margin:.8rem 0;
+}
+.alert-box i{font-size:1rem;flex-shrink:0;margin-top:2px}
+.alert-box--cyan{background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);color:var(--text-muted)}
+.alert-box--cyan i{color:var(--cyan)}
+.alert-box--orange{background:rgba(255,123,0,.07);border:1px solid rgba(255,123,0,.2);color:var(--text-muted)}
+.alert-box--orange i{color:var(--orange)}
+.alert-box--red{background:rgba(255,68,68,.07);border:1px solid rgba(255,68,68,.2);color:var(--text-muted)}
+.alert-box--red i{color:var(--red)}
+.alert-box--green{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);color:var(--text-muted)}
+.alert-box--green i{color:var(--green)}
+.alert-box strong{color:var(--text);font-weight:600}
+
+/* ---- CAMBIO CARDS ---- */
+.cambio-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:.8rem 0}
+.cambio-card{border-radius:var(--radius);padding:1.2rem 1.4rem;text-align:center}
+.cambio-card--ok{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.2)}
+.cambio-card--no{background:rgba(255,68,68,.06);border:1px solid rgba(255,68,68,.2)}
+.cambio-card i{font-size:1.4rem;margin-bottom:.5rem;display:block}
+.cambio-card--ok i{color:var(--green)}
+.cambio-card--no i{color:var(--red)}
+.cambio-card p{font-size:.83rem;color:var(--text-muted);font-weight:300;line-height:1.6}
+.cambio-card strong{color:var(--text);font-weight:600}
+
+/* ---- TELEFONO PROCESO ---- */
+.tel-steps{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:1.2rem}
+.tel-step{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;
+  opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;
+}
+.tel-step.visible{opacity:1;transform:translateY(0)}
+.tel-step-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 1.6rem;
+  border-bottom:1px solid var(--border);
+}
+.tel-step-num{
+  font-family:var(--font-head);font-size:1.5rem;font-weight:900;
+  color:rgba(0,212,255,.15);line-height:1;min-width:36px;
+}
+.tel-step-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+  background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);color:var(--cyan);
+}
+.tel-step-title{font-family:var(--font-head);font-size:.9rem;font-weight:700}
+.tel-step-body{padding:1.4rem 1.6rem}
+.tel-step-body p{font-size:.87rem;color:var(--text-muted);font-weight:300;line-height:1.8;margin-bottom:.8rem}
+.tel-step-body strong{color:var(--text);font-weight:600}
+.tel-checklist{display:flex;flex-direction:column;gap:.4rem;margin:.6rem 0}
+.tel-check{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-muted);font-weight:300;padding:7px 10px;border-radius:8px;background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.08)}
+.tel-check i{color:var(--cyan);font-size:.7rem;flex-shrink:0}
+
+/* ---- RESULTADO GARANTIA ---- */
+.resultado-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:.8rem 0}
+.res-card{border-radius:var(--radius);padding:1rem 1.2rem;text-align:center}
+.res-card--ok{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.2)}
+.res-card--mid{background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2)}
+.res-card--no{background:rgba(255,68,68,.06);border:1px solid rgba(255,68,68,.2)}
+.res-card i{font-size:1.3rem;margin-bottom:.4rem;display:block}
+.res-card--ok i{color:var(--green)}
+.res-card--mid i{color:var(--cyan)}
+.res-card--no i{color:var(--red)}
+.res-card p{font-size:.78rem;color:var(--text-muted);font-weight:300}
+.res-card strong{color:var(--text);font-weight:600}
+
+/* ---- CTA MERMAS ---- */
+.mermas-cta{
+  max-width:820px;margin:0 auto;
+  background:linear-gradient(145deg,rgba(0,212,255,.07),rgba(0,255,204,.03));
+  border:1px solid rgba(0,212,255,.3);border-radius:var(--radius-lg);
+  padding:2.5rem 2rem;text-align:center;
+  opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;
+}
+.mermas-cta.visible{opacity:1;transform:translateY(0)}
+.mermas-cta .cta-icon{font-size:2.8rem;color:var(--cyan);filter:drop-shadow(0 0 14px rgba(0,212,255,.5));margin-bottom:1rem}
+.mermas-cta h3{font-family:var(--font-head);font-size:1rem;font-weight:800;margin-bottom:.8rem}
+.mermas-cta p{font-size:.88rem;color:var(--text-muted);font-weight:300;max-width:520px;margin:0 auto 1.4rem;line-height:1.8}
+.cta-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:.08em;
+  padding:12px 24px;border-radius:50px;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);
+  box-shadow:0 4px 20px rgba(0,212,255,.3);transition:all .25s;
+}
+.cta-link:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.45)}
+
+/* ---- ANIM ---- */
+.hero-content,.hero-visual{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.hero-content.visible{opacity:1;transform:translateY(0);transition-delay:.1s}
+.hero-visual.visible{opacity:1;transform:translateY(0);transition-delay:.3s}
+
+/* ---- FOOTER ---- */
+.footer{position:relative;background:var(--bg2);border-top:1px solid var(--border);padding:4rem 4% 2rem;overflow:hidden}
+.footer-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:200px;background:radial-gradient(ellipse,rgba(0,212,255,.06),transparent 70%)}
+.footer-content{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;position:relative}
+.footer-brand .brand-text{font-family:var(--font-head);font-size:1.1rem}
+.footer-brand p{color:var(--text-muted);font-size:.83rem;margin-top:.5rem;font-weight:300}
+.footer-links h5{font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--cyan);text-transform:uppercase;margin-bottom:1rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:.82rem;color:var(--text-muted);transition:color .2s}
+.footer-links a:hover{color:var(--cyan)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;font-size:.75rem;color:var(--text-muted)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:768px){
+  .navbar{padding:.8rem 4%;gap:.8rem;flex-wrap:wrap}
+  .nav-toggle{display:flex;margin-left:auto}
+  .nav-cta{order:3;font-size:.68rem;padding:7px 14px}
+  .nav-links{display:none;flex-direction:column;width:100%;order:4;gap:0;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-top:.3rem}
+  .nav-links.open{display:flex}
+  .nav-links li a{display:block;padding:.85rem 1.2rem;border-bottom:1px solid var(--border);font-size:.82rem}
+  .nav-links li:last-child a{border-bottom:none}
+  .hero{flex-direction:column;padding-top:3.5rem;min-height:auto;gap:2rem;text-align:center}
+  .hero-content{max-width:100%}
+  .hero-actions{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-visual{min-height:220px}
+  .ejemplos-grid{grid-template-columns:1fr}
+  .cambio-row{grid-template-columns:1fr}
+  .resultado-grid{grid-template-columns:1fr}
+  .intro-banner{flex-direction:column;gap:.8rem}
+  .footer-content{grid-template-columns:1fr;gap:1.5rem}
+  .section{padding:4rem 4%}
+}
+@media(max-width:480px){
+  .hero-title{font-size:1.9rem}
+  .section-header h2{font-size:1.5rem}
+  .paso-item{gap:1rem}
+  .paso-num-wrap{display:none}
+}
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="brand-icon">⬡</span>
+    <span class="brand-text">Innovación<strong>Móvil</strong></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#accesorios">Accesorios</a></li>
+    <li><a href="#telefonos">Teléfonos</a></li>
+    <li><a href="#mermas">Mermas</a></li>
+  </ul>
+  <button class="nav-cta">Ver Protocolo</button>
+  <button class="nav-toggle" id="navToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow hero-glow--1"></div>
+  <div class="hero-glow hero-glow--2"></div>
+  <div class="hero-content">
+    <p class="hero-tag"><span class="dot"></span> Políticas de Servicio</p>
+    <h1 class="hero-title">
+      Protocolo de<br/>
+      <span class="gradient-text">Garantías</span><br/>
+      y Mermas
+    </h1>
+    <p class="hero-desc">
+      ¿Sabías que la mayoría de los productos cuentan con hasta <strong>3 meses de garantía</strong> por defectos de fábrica? Aprende cómo validarlas correctamente en accesorios, micas y equipos telefónicos.
+    </p>
+    <div class="hero-actions">
+      <a href="#accesorios" class="btn btn--primary">Garantías Accesorios <i class="fas fa-arrow-right"></i></a>
+      <a href="#telefonos" class="btn btn--ghost">Garantías Teléfonos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Meses de garantía</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Devoluciones en dinero</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><span class="stat-num">✓</span><span class="stat-label">Cambio por mercancía</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="garantia-mockup">
+      <div class="garantia-badge-main">
+        <i class="fas fa-certificate"></i>
+        <span>Garantía</span>
+      </div>
+      <div class="months-ring">
+        <div class="month-dot">M1</div>
+        <div class="month-dot">M2</div>
+        <div class="month-dot">M3</div>
+      </div>
+    </div>
+    <div class="orbit orbit--1"></div>
+    <div class="orbit orbit--2"></div>
+  </div>
+</section>
+
+<!-- ===== GARANTÍAS ACCESORIOS ===== -->
+<section class="section section--dark" id="accesorios">
+  <div class="section-header">
+    <span class="section-tag">Accesorios y Micas</span>
+    <h2>¿Cómo validar una <span class="gradient-text">garantía</span>?</h2>
+    <p>Sigue estos pasos en orden para validar correctamente una garantía en accesorios, micas y productos de telefonía.</p>
+  </div>
+
+  <div class="intro-banner">
+    <i class="fas fa-circle-info"></i>
+    <p>En el caso de las micas, la garantía aplica cuando presentan <strong>desprendimiento o fallas de fabricación</strong>. Es fundamental saber cómo validarlas correctamente, ya sea en productos de accesorios o telefonía.</p>
+  </div>
+
+  <div class="pasos-list">
+
+    <!-- PASO 1 -->
+    <div class="paso-item">
+      <div class="paso-num-wrap">
+        <div class="paso-num">01</div>
+        <div class="paso-connector"></div>
+      </div>
+      <div class="paso-content">
+        <h4><i class="fas fa-receipt" style="color:var(--cyan);margin-right:8px"></i>Solicita el ticket de compra</h4>
+        <p>Lo primero es pedirle al cliente su <em>ticket de compra</em>.</p>
+        <div class="req-grid">
+          <div class="req-item"><i class="fas fa-check"></i> Ticket físico o digital</div>
+          <div class="req-item"><i class="fas fa-check"></i> Fecha dentro del período de garantía</div>
+          <div class="req-item"><i class="fas fa-check"></i> Que corresponda al producto en cuestión</div>
+        </div>
+        <div class="alert-box alert-box--cyan">
+          <i class="fas fa-calendar-check"></i>
+          <p>Verifica que la fecha <strong>no exceda el tiempo permitido</strong> de garantía (máximo 3 meses desde la compra).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="paso-item">
+      <div class="paso-num-wrap">
+        <div class="paso-num">02</div>
+        <div class="paso-connector"></div>
+      </div>
+      <div class="paso-content">
+        <h4><i class="fas fa-box-open" style="color:var(--cyan);margin-right:8px"></i>Revisa el producto</h4>
+        <p>El producto debe venir <em>completo y en condiciones adecuadas</em> para poder tramitar la garantía.</p>
+        <div class="req-grid">
+          <div class="req-item"><i class="fas fa-box"></i> Caja o empaque original</div>
+          <div class="req-item"><i class="fas fa-puzzle-piece"></i> Accesorios completos</div>
+          <div class="req-item"><i class="fas fa-tag"></i> Producto original (no alterado)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="paso-item">
+      <div class="paso-num-wrap">
+        <div class="paso-num">03</div>
+        <div class="paso-connector"></div>
+      </div>
+      <div class="paso-content">
+        <h4><i class="fas fa-magnifying-glass" style="color:var(--cyan);margin-right:8px"></i>Confirma que sea una falla real</h4>
+        <p>El vendedor debe revisar que <strong>realmente sea un defecto de fábrica</strong> y no un problema de uso o configuración.</p>
+
+        <p style="font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b08aff;margin-bottom:.5rem">
+          <i class="fas fa-lightbulb" style="margin-right:6px"></i>Ejemplos de falsa falla
+        </p>
+        <div class="ejemplos-grid">
+          <div class="ejemplo-card">
+            <i class="fas fa-headphones"></i>
+            <p>El cliente <strong>no sabe cómo vincular</strong> una bocina o unos audífonos por Bluetooth.</p>
+          </div>
+          <div class="ejemplo-card">
+            <i class="fas fa-plug"></i>
+            <p>El cargador "no funciona" pero al probarlo en otro teléfono <strong>sí carga correctamente</strong>.</p>
+          </div>
+        </div>
+
+        <div class="alert-box alert-box--orange" style="margin-top:.8rem">
+          <i class="fas fa-wrench"></i>
+          <p>En esos casos: <strong>revisa configuraciones</strong>, limpia el centro de carga y descarta posibles causas antes de validar la garantía. Nosotros como vendedores también debemos brindar apoyo y orientación al cliente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 (falla confirmada) -->
+    <div class="paso-item">
+      <div class="paso-num-wrap">
+        <div class="paso-num">04</div>
+      </div>
+      <div class="paso-content">
+        <h4><i class="fas fa-arrows-rotate" style="color:var(--cyan);margin-right:8px"></i>Si el producto sí presenta falla — procede el cambio</h4>
+        <p>Si después de las pruebas confirmas que el producto está defectuoso, entonces procede la validación de garantía. El cambio puede hacerse por:</p>
+
+        <div class="cambio-row">
+          <div class="cambio-card cambio-card--ok">
+            <i class="fas fa-check-circle"></i>
+            <p>El <strong>mismo producto</strong> disponible en inventario</p>
+          </div>
+          <div class="cambio-card cambio-card--ok">
+            <i class="fas fa-exchange-alt"></i>
+            <p><strong>Otro producto</strong> con valor igual o mayor al original</p>
+          </div>
+        </div>
+
+        <div class="cambio-row" style="margin-top:.2rem">
+          <div class="cambio-card cambio-card--no" style="grid-column:1/-1">
+            <i class="fas fa-times-circle"></i>
+            <p>Por <strong>ningún motivo</strong> se realizan devoluciones de dinero. El cambio siempre será <strong>por mercancía</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== GARANTÍAS TELÉFONOS ===== -->
+<section class="section" id="telefonos">
+  <div class="section-header">
+    <span class="section-tag section-tag--purple">Equipos Telefónicos</span>
+    <h2>Garantías en <span class="gradient-purple">equipos telefónicos</span></h2>
+    <p>El procedimiento para teléfonos y equipos electrónicos es <strong>diferente al de accesorios</strong>. Sigue este proceso con atención.</p>
+  </div>
+
+  <div class="tel-steps">
+
+    <!-- PASO 1 -->
+    <div class="tel-step">
+      <div class="tel-step-header">
+        <span class="tel-step-num">01</span>
+        <div class="tel-step-icon"><i class="fas fa-comment-dots"></i></div>
+        <span class="tel-step-title">El cliente reporta una falla</span>
+      </div>
+      <div class="tel-step-body">
+        <p>Como vendedor, debes revisar que se cumplan todos los requisitos antes de continuar con el proceso de garantía.</p>
+        <div class="tel-checklist">
+          <div class="tel-check"><i class="fas fa-check"></i> Que la falla exista y sea comprobable</div>
+          <div class="tel-check"><i class="fas fa-check"></i> Que tenga ticket de compra original</div>
+          <div class="tel-check"><i class="fas fa-check"></i> Que no exceda los 3 meses desde la compra</div>
+          <div class="tel-check"><i class="fas fa-check"></i> Que entregue caja y accesorios originales completos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="tel-step">
+      <div class="tel-step-header">
+        <span class="tel-step-num">02</span>
+        <div class="tel-step-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+        <span class="tel-step-title">Validación con técnico</span>
+      </div>
+      <div class="tel-step-body">
+        <p>Después de recibir el equipo, debe ser revisado por el técnico para confirmar la falla.</p>
+        <div class="alert-box alert-box--red">
+          <i class="fas fa-triangle-exclamation"></i>
+          <p><strong>El técnico NO debe abrir el equipo</strong>, ya que eso puede hacer que pierda la garantía del fabricante.</p>
+        </div>
+        <p style="margin-top:.8rem">En algunos casos la falla puede solucionarse sin abrir el equipo mediante:</p>
+        <div class="req-grid" style="margin-top:.5rem">
+          <div class="req-item"><i class="fas fa-gear"></i> Configuración del sistema</div>
+          <div class="req-item"><i class="fas fa-rotate"></i> Actualización de software</div>
+          <div class="req-item"><i class="fas fa-sliders"></i> Ajustes básicos del equipo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="tel-step">
+      <div class="tel-step-header">
+        <span class="tel-step-num">03</span>
+        <div class="tel-step-icon"><i class="fas fa-paper-plane"></i></div>
+        <span class="tel-step-title">Envío a validación</span>
+      </div>
+      <div class="tel-step-body">
+        <p>Si el técnico <strong>confirma la falla</strong>, el equipo entra a un proceso de validación de aproximadamente <em>una semana</em>. El teléfono será enviado para evaluación y ahí se decidirá el resultado.</p>
+        <div class="resultado-grid">
+          <div class="res-card res-card--ok">
+            <i class="fas fa-shield-check"></i>
+            <p><strong>Garantía aprobada</strong> — se realiza el cambio o reparación</p>
+          </div>
+          <div class="res-card res-card--mid">
+            <i class="fas fa-arrows-rotate"></i>
+            <p><strong>Equipo reemplazado</strong> — por uno de igual o mayor valor</p>
+          </div>
+          <div class="res-card res-card--no">
+            <i class="fas fa-ban"></i>
+            <p><strong>Garantía rechazada</strong> — si se detecta mal uso o daño físico</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== MERMAS CTA ===== -->
+<section class="section section--dark" id="mermas">
+  <div class="section-header">
+    <span class="section-tag section-tag--green">Siguiente Paso</span>
+    <h2>¿Y las <span class="gradient-text">mermas</span>?</h2>
+    <p>Ahora que ya sabes cómo validar una garantía, también es importante aprender cómo dar de baja correctamente las garantías y mermas para que no afecten tu inventario.</p>
+  </div>
+
+  <div class="mermas-cta">
+    <div class="cta-icon"><i class="fas fa-boxes-stacked"></i></div>
+    <h3>Gestión correcta de mermas y garantías</h3>
+    <p>
+      En la siguiente sección te explicamos cómo evitar mermas, cómo validarlas con evidencia fotográfica, cómo registrarlas en el sistema y cómo enviarlas correctamente a almacén para que se den de baja sin problemas.
+    </p>
+    <a href="mermas_garantias.html" class="cta-link">
+      <i class="fas fa-arrow-right"></i> Ver guía de mermas y garantías
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-glow"></div>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">Innovación<strong> Móvil</strong></span>
+      <p>La mejor protección y accesorios para cada dispositivo.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Navegación</h5>
+      <a href="#accesorios">Garantías accesorios</a>
+      <a href="#telefonos">Garantías teléfonos</a>
+      <a href="#mermas">Mermas</a>
+    </div>
+    <div class="footer-links">
+      <h5>Recursos</h5>
+      <a href="mermas_garantias.html">Envío de mermas y garantías</a>
+      <a href="cobro_protectores.html">Criterios de cobro</a>
+      <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank">Material de apoyo</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Innovación Móvil — Todos los derechos reservados. | Protocolo de Garantías y Mermas.</p>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+function stagger(sel, base = 100) {
+  document.querySelectorAll(sel).forEach((el, i) => { el.dataset.delay = i * base; observer.observe(el); });
+}
+
+stagger('.paso-item', 120);
+stagger('.tel-step', 110);
+document.querySelectorAll('.hero-content,.hero-visual,.mermas-cta').forEach(el => observer.observe(el));
+
+// Active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(l => { l.style.color=''; if (l.getAttribute('href')==='#'+e.target.id) l.style.color='var(--cyan)'; });
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObs.observe(s));
+
+// Navbar shrink
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => { navbar.style.padding = window.scrollY > 60 ? '0.6rem 4%' : '1rem 4%'; });
+
+// CTA
+document.querySelector('.nav-cta').addEventListener('click', () => document.querySelector('#accesorios').scrollIntoView({ behavior: 'smooth' }));
+
+// Hamburger
+const navToggle = document.getElementById('navToggle');
+const navLinksList = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => { navToggle.classList.toggle('open'); navLinksList.classList.toggle('open'); });
+</script>
+</body>
+</html>
