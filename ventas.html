@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proceso de Venta — CentralCell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{
+      --bg:#050a0f;
+      --bg2:#080d14;
+      --card:#0c1420;
+      --card2:#101826;
+      --border:rgba(0,200,255,0.1);
+      --blue:#00c8ff;
+      --green:#00f5a0;
+      --gold:#ffd600;
+      --pink:#ff4d8f;
+      --purple:#a855f7;
+      --text:#eef4ff;
+      --sub:#6b8aaa;
+      --fh:'Syne',sans-serif;
+      --fb:'Nunito',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.65}
+    a{text-decoration:none;color:inherit}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
+
+    /* ── NAVBAR ── */
+    nav{
+      position:sticky;top:0;z-index:900;
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;
+      padding:.85rem 5%;
+      background:rgba(5,10,15,0.94);backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-brand{font-family:var(--fh);font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:9px}
+    .nav-brand .dot{width:10px;height:10px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+    .nav-right{display:flex;align-items:center;gap:.7rem}
+    .nav-home{
+      display:inline-flex;align-items:center;gap:6px;
+      background:linear-gradient(135deg,var(--blue),var(--green));
+      color:#050a0f;font-family:var(--fh);font-size:.68rem;font-weight:700;letter-spacing:.06em;
+      padding:7px 16px;border-radius:40px;
+      box-shadow:0 3px 16px rgba(0,200,255,.3);transition:transform .2s,box-shadow .2s;white-space:nowrap;
+    }
+    .nav-home:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,200,255,.5)}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;background:transparent;border:none;cursor:pointer;padding:5px}
+    .nav-toggle span{display:block;width:22px;height:2px;background:var(--blue);border-radius:2px;transition:all .3s}
+    .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .nav-toggle.open span:nth-child(2){opacity:0}
+    .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-links{display:flex;gap:1.8rem}
+    .nav-links a{font-size:.76rem;font-weight:600;color:var(--sub);letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--blue)}
+
+    /* ── HERO ── */
+    .hero{
+      position:relative;min-height:88vh;display:flex;align-items:center;
+      padding:5.5rem 5% 4rem;gap:4rem;overflow:hidden;
+    }
+    .hero-grid{
+      position:absolute;inset:0;z-index:0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,200,255,0.035) 1px,transparent 1px);
+      background-size:52px 52px;
+    }
+    .hero-blob{
+      position:absolute;z-index:0;border-radius:50%;filter:blur(90px);pointer-events:none;
+    }
+    .blob1{width:500px;height:500px;top:-150px;left:-100px;background:radial-gradient(circle,rgba(0,200,255,.12),transparent 70%)}
+    .blob2{width:400px;height:400px;bottom:-80px;right:5%;background:radial-gradient(circle,rgba(0,245,160,.1),transparent 70%)}
+    .blob3{width:300px;height:300px;top:40%;left:40%;background:radial-gradient(circle,rgba(168,85,247,.07),transparent 70%)}
+
+    .hero-left{position:relative;z-index:1;flex:1;max-width:600px}
+    .hero-kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+      color:var(--green);border:1px solid rgba(0,245,160,.25);
+      padding:4px 14px;border-radius:40px;margin-bottom:1.4rem;
+    }
+    .hero-title{
+      font-family:var(--fh);font-size:clamp(2.5rem,5.5vw,4.5rem);
+      font-weight:800;line-height:1.05;margin-bottom:1.2rem;
+    }
+    .hero-title .g1{
+      background:linear-gradient(90deg,var(--blue),var(--green));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .hero-title .g2{
+      background:linear-gradient(90deg,var(--gold),var(--pink));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .hero-desc{font-size:.97rem;color:var(--sub);max-width:500px;margin-bottom:2rem;font-weight:400;line-height:1.75}
+    .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+    .cta-main{
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,var(--blue),var(--green));
+      color:#050a0f;font-family:var(--fh);font-size:.73rem;font-weight:700;letter-spacing:.06em;
+      padding:13px 26px;border-radius:40px;border:none;cursor:pointer;
+      box-shadow:0 4px 22px rgba(0,200,255,.3);transition:all .25s;
+    }
+    .cta-main:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,200,255,.45)}
+    .cta-sec{
+      display:inline-flex;align-items:center;gap:8px;
+      background:transparent;border:1.5px solid rgba(0,200,255,.25);color:var(--sub);
+      font-family:var(--fh);font-size:.73rem;font-weight:700;letter-spacing:.06em;
+      padding:12px 24px;border-radius:40px;cursor:pointer;transition:all .2s;
+    }
+    .cta-sec:hover{border-color:var(--blue);color:var(--blue)}
+
+    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
+    .hs{text-align:center}
+    .hs-n{display:block;font-family:var(--fh);font-size:2rem;font-weight:800;color:var(--blue);line-height:1}
+    .hs-l{font-size:.66rem;color:var(--sub);letter-spacing:.06em;text-transform:uppercase}
+    .hs-sep{width:1px;height:34px;background:rgba(0,200,255,.15);align-self:center}
+
+    /* HERO VISUAL — número grande decorativo */
+    .hero-right{
+      position:relative;z-index:1;flex:1;
+      display:flex;justify-content:center;align-items:center;min-height:360px;
+    }
+    .rocket-wrap{
+      position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      width:260px;height:260px;
+    }
+    .rocket-circle{
+      position:absolute;inset:0;border-radius:50%;
+      background:radial-gradient(circle at 35% 35%,rgba(0,200,255,.12),rgba(0,245,160,.06) 60%,transparent);
+      border:1.5px solid rgba(0,200,255,.2);
+      animation:floatc 4.5s ease-in-out infinite;
+    }
+    @keyframes floatc{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+    .rocket-icon{font-size:5rem;filter:drop-shadow(0 0 24px rgba(0,200,255,.5));z-index:1;animation:floatc 4.5s ease-in-out infinite}
+    .orbit-r{position:absolute;border-radius:50%;border:1px solid rgba(0,200,255,.08);animation:spinr linear infinite}
+    .orbit-r1{width:320px;height:320px;animation-duration:14s}
+    .orbit-r2{width:460px;height:460px;animation-duration:24s;animation-direction:reverse}
+    .orbit-dot{position:absolute;width:8px;height:8px;background:var(--blue);border-radius:50%;box-shadow:0 0 8px var(--blue);top:0;left:50%;transform:translateX(-50%)}
+    @keyframes spinr{to{transform:rotate(360deg)}}
+
+    /* ── SECTIONS ── */
+    .section{padding:5.5rem 5%;position:relative}
+    .section.alt{background:var(--bg2)}
+    .sec-head{text-align:center;margin-bottom:3.5rem}
+    .sec-tag{
+      display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--blue);border:1px solid rgba(0,200,255,.25);padding:3px 14px;border-radius:40px;margin-bottom:.9rem;
+    }
+    .sec-head h2{font-family:var(--fh);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;margin-bottom:.7rem}
+    .sec-head p{color:var(--sub);max-width:520px;margin:0 auto;font-size:.93rem}
+    .hl{
+      background:linear-gradient(90deg,var(--blue),var(--green));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+
+    /* ── PASOS (TIMELINE) ── */
+    .timeline{position:relative;max-width:900px;margin:0 auto}
+    .timeline::before{
+      content:'';position:absolute;left:36px;top:0;bottom:0;width:2px;
+      background:linear-gradient(180deg,var(--blue),var(--green),var(--gold),var(--pink));
+      opacity:.25;
+    }
+    .step{
+      display:flex;gap:1.4rem;margin-bottom:1.6rem;
+      background:var(--card);border:1px solid var(--border);border-radius:16px;
+      padding:1.5rem 1.6rem;position:relative;
+      transition:transform .3s,border-color .3s,box-shadow .3s;
+    }
+    .step:hover{transform:translateX(6px);border-color:rgba(0,200,255,.3);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+    .step-num{
+      width:52px;height:52px;border-radius:50%;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--fh);font-size:1.1rem;font-weight:800;
+      border:2px solid;position:relative;z-index:1;
+    }
+    .step-body{flex:1}
+    .step-body h3{font-family:var(--fh);font-size:1.05rem;font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .step-body p{font-size:.88rem;color:var(--sub);line-height:1.75}
+    .step-body strong{color:var(--text);font-weight:600}
+    .tip-box{
+      display:flex;align-items:flex-start;gap:8px;
+      background:rgba(0,200,255,.05);border-left:3px solid var(--blue);
+      border-radius:0 8px 8px 0;padding:.7rem .9rem;margin-top:.9rem;
+    }
+    .tip-box i{color:var(--gold);flex-shrink:0;margin-top:2px}
+    .tip-box span{font-size:.82rem;color:var(--sub);line-height:1.6}
+    .tip-box strong{color:var(--text)}
+
+    /* colores por paso */
+    .s1 .step-num{background:rgba(0,200,255,.1);border-color:var(--blue);color:var(--blue)}
+    .s2 .step-num{background:rgba(0,245,160,.1);border-color:var(--green);color:var(--green)}
+    .s3 .step-num{background:rgba(255,214,0,.1);border-color:var(--gold);color:var(--gold)}
+    .s4 .step-num{background:rgba(168,85,247,.1);border-color:var(--purple);color:var(--purple)}
+    .s5 .step-num{background:rgba(0,200,255,.1);border-color:var(--blue);color:var(--blue)}
+    .s6 .step-num{background:rgba(0,245,160,.1);border-color:var(--green);color:var(--green)}
+    .s7 .step-num{background:rgba(255,214,0,.1);border-color:var(--gold);color:var(--gold)}
+    .s8 .step-num{background:rgba(255,77,143,.1);border-color:var(--pink);color:var(--pink)}
+    .s9 .step-num{background:rgba(168,85,247,.1);border-color:var(--purple);color:var(--purple)}
+    .s10 .step-num{background:rgba(0,200,255,.1);border-color:var(--blue);color:var(--blue)}
+
+    /* badges piropas / técnicas */
+    .tag-badge{
+      display:inline-flex;align-items:center;gap:5px;
+      font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      padding:3px 10px;border-radius:40px;margin:.3rem .3rem 0 0;
+    }
+    .tb-blue{background:rgba(0,200,255,.12);color:var(--blue);border:1px solid rgba(0,200,255,.25)}
+    .tb-green{background:rgba(0,245,160,.1);color:var(--green);border:1px solid rgba(0,245,160,.22)}
+    .tb-gold{background:rgba(255,214,0,.1);color:var(--gold);border:1px solid rgba(255,214,0,.22)}
+    .tb-pink{background:rgba(255,77,143,.1);color:var(--pink);border:1px solid rgba(255,77,143,.22)}
+    .tb-purple{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.22)}
+
+    /* piropas cards */
+    .quotes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem}
+    .q-card{
+      background:rgba(0,200,255,.04);border:1px solid rgba(0,200,255,.12);
+      border-radius:10px;padding:.9rem 1rem;
+      font-size:.85rem;color:var(--sub);line-height:1.6;font-style:italic;position:relative;
+    }
+    .q-card::before{content:'"';font-size:2rem;color:var(--blue);opacity:.3;position:absolute;top:4px;left:10px;font-family:var(--fh);line-height:1}
+    .q-card p{padding-left:16px}
+
+    /* técnicas de cierre */
+    .tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    .tech-card{
+      background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1.2rem;
+    }
+    .tech-card h4{font-family:var(--fh);font-size:.85rem;font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:7px}
+    .tech-card p{font-size:.82rem;color:var(--sub);line-height:1.65}
+    .tech-card strong{color:var(--text)}
+
+    /* ── MOTIVACIÓN ── */
+    .moti{
+      background:linear-gradient(135deg,rgba(0,200,255,.07),rgba(0,245,160,.05),rgba(168,85,247,.05));
+      border:1px solid rgba(0,200,255,.18);border-radius:20px;
+      padding:3.5rem 4rem;text-align:center;max-width:800px;margin:0 auto;
+      position:relative;overflow:hidden;
+    }
+    .moti::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 50% 0%,rgba(0,200,255,.08),transparent 60%);
+    }
+    .moti-icon{font-size:3.5rem;margin-bottom:1rem;filter:drop-shadow(0 0 16px rgba(0,245,160,.4))}
+    .moti h2{font-family:var(--fh);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:1rem;position:relative}
+    .moti p{font-size:.97rem;color:var(--sub);max-width:560px;margin:0 auto 1.5rem;line-height:1.75;position:relative}
+
+    /* ── BUTTONS EXTRA ── */
+    .extra-buttons{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:2.5rem}
+    .xbtn{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--fh);font-size:.72rem;font-weight:700;letter-spacing:.06em;
+      padding:12px 22px;border-radius:40px;border:1.5px solid;
+      cursor:pointer;transition:all .2s;
+    }
+    .xbtn-blue{color:var(--blue);border-color:rgba(0,200,255,.3);background:rgba(0,200,255,.07)}
+    .xbtn-blue:hover{background:rgba(0,200,255,.15);border-color:var(--blue)}
+    .xbtn-green{color:var(--green);border-color:rgba(0,245,160,.3);background:rgba(0,245,160,.07)}
+    .xbtn-green:hover{background:rgba(0,245,160,.15);border-color:var(--green)}
+    .xbtn-gold{color:var(--gold);border-color:rgba(255,214,0,.3);background:rgba(255,214,0,.07)}
+    .xbtn-gold:hover{background:rgba(255,214,0,.15);border-color:var(--gold)}
+
+    /* ── FOOTER ── */
+    .footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 5% 1.5rem}
+    .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+    .fb-brand{font-family:var(--fh);font-size:1.1rem;font-weight:800;margin-bottom:.5rem}
+    .fb-brand .hl2{color:var(--green)}
+    .fb-desc{font-size:.8rem;color:var(--sub);max-width:260px;line-height:1.6}
+    .fc{display:flex;flex-direction:column;gap:.55rem}
+    .fc h5{font-family:var(--fh);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+    .fc a{font-size:.78rem;color:var(--sub);transition:color .2s}
+    .fc a:hover{color:var(--blue)}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:1.2rem;text-align:center;font-size:.68rem;color:var(--sub)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      .quotes-grid,.tech-grid{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      .nav-links{
+        display:none;flex-direction:column;gap:0;width:100%;
+        position:absolute;top:100%;left:0;
+        background:rgba(5,10,15,.97);border-bottom:1px solid var(--border);
+      }
+      .nav-links.open{display:flex}
+      .nav-links a{display:block;padding:.8rem 5%;border-bottom:1px solid var(--border)}
+      .nav-toggle{display:flex}
+      .hero{flex-direction:column;text-align:center;padding-top:3.5rem;min-height:auto;gap:2rem}
+      .hero-left{max-width:100%}
+      .hero-ctas{justify-content:center}
+      .hero-stats{justify-content:center}
+      .hero-right{min-height:240px}
+      .timeline::before{left:22px}
+      .step{padding:1.2rem 1.1rem;gap:1rem}
+      .step-num{width:40px;height:40px;font-size:.9rem}
+      .moti{padding:2.5rem 1.5rem}
+      .extra-buttons{flex-direction:column;align-items:center}
+      .section{padding:4rem 4%}
+    }
+    @media(max-width:480px){
+      .hero-title{font-size:2.4rem}
+      .rocket-icon{font-size:3.5rem}
+      .orbit-r1{width:230px;height:230px}
+      .orbit-r2{width:340px;height:340px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="dot"></span>
+    CentralCell
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#pasos">Proceso</a></li>
+    <li><a href="#cierre">Cierre</a></li>
+    <li><a href="#motivacion">Motivación</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" class="nav-home" target="_blank">
+      <i class="fas fa-home"></i> <span>Inicio</span>
+    </a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+  <div class="hero-left">
+    <p class="hero-kicker"><i class="fas fa-rocket"></i> Innovación Móvil — CentralCell</p>
+    <h1 class="hero-title">
+      PROCESO<br>
+      <span class="g1">DE VENTA</span><br>
+      <span class="g2">CENTRALCELL</span>
+    </h1>
+    <p class="hero-desc">Cada paso te acerca a cerrar la venta y a dejar al cliente feliz y satisfecho. Sigue este proceso con energía, actitud y seguridad.</p>
+    <div class="hero-ctas">
+      <a href="#pasos" class="cta-main"><i class="fas fa-list-ol"></i> Ver los 10 Pasos</a>
+      <a href="#motivacion" class="cta-sec"><i class="fas fa-bolt"></i> Motivación Final</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><span class="hs-n">10</span><span class="hs-l">Pasos</span></div>
+      <div class="hs-sep"></div>
+      <div class="hs"><span class="hs-n">2</span><span class="hs-l">Técnicas</span></div>
+      <div class="hs-sep"></div>
+      <div class="hs"><span class="hs-n">100%</span><span class="hs-l">Actitud</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="orbit-r orbit-r1"><div class="orbit-dot"></div></div>
+    <div class="orbit-r orbit-r2"></div>
+    <div class="rocket-wrap">
+      <div class="rocket-circle"></div>
+      <div class="rocket-icon">🚀</div>
+    </div>
+  </div>
+</section>
+
+<!-- PASOS -->
+<section class="section alt" id="pasos">
+  <div class="sec-head">
+    <span class="sec-tag">Guía completa</span>
+    <h2>Los <span class="hl">10 Pasos</span> del Proceso</h2>
+    <p>Sigue cada paso en orden para brindar una experiencia de venta excepcional.</p>
+  </div>
+  <div class="timeline">
+
+    <!-- 1 -->
+    <div class="step s1">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-blue"><i class="fas fa-eye"></i> Aproximación</span></h3>
+        <p>Identifica al cliente que entra a la sucursal. <strong>Acércate con actitud positiva y energía.</strong></p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span><strong>Tip:</strong> El primer contacto crea la confianza. Sonríe y haz que el cliente se sienta bienvenido desde que cruza la puerta.</span></div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="step s2">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-green"><i class="fas fa-handshake"></i> Saludo Institucional</span></h3>
+        <p>Di con energía: <strong>"¡Buenos días/tardes, bienvenido a CentralCell! Mi nombre es ______. ¿Con quién tengo el gusto?"</strong></p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span>Un saludo cálido abre la puerta a la conversación y establece una conexión inmediata.</span></div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="step s3">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-gold"><i class="fas fa-mug-hot"></i> Ofrecer Cortesía</span></h3>
+        <p>Invita al cliente a <strong>sentarse</strong> y ofrece un <strong>vaso de agua</strong>.</p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span>Pequeños gestos generan comodidad y confianza. Un cliente cómodo está más abierto a escuchar.</span></div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="step s4">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-purple"><i class="fas fa-ear-listen"></i> Indagar Necesidades</span></h3>
+        <p>Haz preguntas para entender qué necesita el cliente o cuál es su problema. <strong>Escucha con atención activa.</strong></p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span><strong>Quien escucha bien, vende mejor.</strong> No interrumpas — deja que el cliente termine antes de responder.</span></div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="step s5">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-blue"><i class="fas fa-mobile-screen"></i> Demostración del Producto</span></h3>
+        <p>Muestra la variedad disponible. Si es posible, <strong>pruébalo directamente en el equipo del cliente</strong> para que lo vea y sienta.</p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span><strong>El cliente compra lo que ve y siente, no solo lo que escucha.</strong> Una demostración real vale más que mil palabras.</span></div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="step s6">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-green"><i class="fas fa-star"></i> Dar Valor</span></h3>
+        <p>Explica los <strong>beneficios y características</strong> del producto. Conecta lo que el cliente necesita con lo que el producto ofrece. Puedes agregar un comentario positivo:</p>
+        <div class="quotes-grid">
+          <div class="q-card"><p>¡Excelente elección! Esta mica es de lo mejor que tenemos, además queda perfecto en su equipo.</p></div>
+          <div class="q-card"><p>Muy buena decisión, este accesorio realmente protege y mejora el uso del dispositivo.</p></div>
+          <div class="q-card"><p>¡Wow! Qué bonitos se le ven los audífonos.</p></div>
+          <div class="q-card"><p>¡Qué padre! Te combina este case.</p></div>
+        </div>
+        <div class="tip-box" style="margin-top:.9rem"><i class="fas fa-lightbulb"></i><span><strong>Vender no es solo mostrar, es demostrar el valor</strong> que el producto aporta a la vida del cliente.</span></div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="step s7" id="cierre">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-gold"><i class="fas fa-check-circle"></i> Cierre de Venta</span></h3>
+        <p>Usa técnicas efectivas para ayudar al cliente a tomar su decisión:</p>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <h4><i class="fas fa-code-branch" style="color:var(--gold)"></i> Doble Alternativa</h4>
+            <p>Plantea dos opciones positivas para el cliente:<br><strong>"¿Prefiere pagar con tarjeta o en efectivo?"</strong><br>Cualquiera que elija, ¡es una venta!</p>
+          </div>
+          <div class="tech-card">
+            <h4><i class="fas fa-repeat" style="color:var(--blue)"></i> Cierre de los 4 Sí</h4>
+            <p>Haz <strong>preguntas sencillas</strong> para que el cliente diga <em>"sí"</em> varias veces seguidas. Al llegar al cierre, ya está mentalmente convencido.</p>
+          </div>
+        </div>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span><strong>El cierre no es presión, es ayudar al cliente a decidir.</strong> Tu seguridad y convicción son clave.</span></div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="step s8">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-pink"><i class="fas fa-tags"></i> Promociones Vigentes</span></h3>
+        <p>Recuerda <strong>siempre mencionar las promociones activas</strong>. Refuerza el beneficio que tendrá el cliente si aprovecha la oferta ahora.</p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span><strong>Las promociones son tu arma para aumentar el ticket de venta.</strong> Un cliente que siente que ahorra, compra más.</span></div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="step s9">
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-purple"><i class="fas fa-plus-circle"></i> Venta Adicional</span></h3>
+        <p>Sugiere un producto extra que complemente la compra. Ejemplo:<br><strong>"Si ya lleva la mica, ¿qué le parece una funda para mayor protección?"</strong></p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span>Un cliente satisfecho casi siempre acepta un extra bien ofrecido. No lo presiones — solo muéstrale el valor.</span></div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="step s10">
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <h3><span class="tag-badge tb-blue"><i class="fas fa-star"></i> Despedida y Recomendación</span></h3>
+        <p>Despide al cliente con energía: <strong>"¡Gracias por comprar en CentralCell, lo esperamos pronto!"</strong><br><br>
+        Invítalo a dejar su reseña: <strong>"Si te gustó nuestro servicio, nos encantaría que nos dejaras tu recomendación en Google Maps o en nuestras redes sociales. ¡Tu opinión nos ayuda a mejorar!"</strong></p>
+        <div class="tip-box"><i class="fas fa-lightbulb"></i><span><strong>El último recuerdo que se lleva el cliente es el más importante.</strong> Asegúrate de que sea memorable y positivo.</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MOTIVACIÓN -->
+<section class="section" id="motivacion">
+  <div class="moti">
+    <div class="moti-icon">⚡</div>
+    <h2 style="position:relative">Motivación <span class="hl">Final</span></h2>
+    <p>Cada cliente es una oportunidad. Si sigues estos pasos con energía, actitud y seguridad, no solo venderás más — <strong style="color:var(--text)">también generarás confianza y clientes que regresan contigo.</strong></p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem">
+      <span class="tag-badge tb-blue"><i class="fas fa-bolt"></i> Energía</span>
+      <span class="tag-badge tb-green"><i class="fas fa-heart"></i> Actitud</span>
+      <span class="tag-badge tb-gold"><i class="fas fa-shield-halved"></i> Seguridad</span>
+      <span class="tag-badge tb-pink"><i class="fas fa-star"></i> Confianza</span>
+      <span class="tag-badge tb-purple"><i class="fas fa-rotate"></i> Regreso</span>
+    </div>
+  </div>
+
+  <div class="extra-buttons">
+    <a href="index.html" class="xbtn xbtn-blue"><i class="fas fa-film"></i> Guía de Hidrogel</a>
+    <a href="polimero.html" class="xbtn xbtn-green"><i class="fas fa-cut"></i> Proceso Protection Pro</a>
+    <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank" class="xbtn xbtn-gold"><i class="fas fa-home"></i> Material de Evaluación</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="fb-brand">Central<span class="hl2">Cell</span></div>
+      <p class="fb-desc">Proceso de venta oficial CentralCell — Innovación Móvil. Guía de capacitación interna.</p>
+    </div>
+    <div class="fc">
+      <h5>En esta página</h5>
+      <a href="#pasos">Los 10 pasos</a>
+      <a href="#cierre">Técnicas de cierre</a>
+      <a href="#motivacion">Motivación</a>
+    </div>
+    <div class="fc">
+      <h5>Más recursos</h5>
+      <a href="index.html">Guía Hidrogel</a>
+      <a href="polimero.html">Protection Pro</a>
+      <a href="https://innovacion-movil.infinityfreeapp.com/Evaluacion/material.html" target="_blank">Material de evaluación</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 CentralCell — Innovación Móvil. Material de capacitación interna.</div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    toggle.classList.remove('open');
+    links.classList.remove('open');
+  }));
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 50 ? '.6rem 5%' : '.85rem 5%';
+  });
+</script>
+</body>
+</html>
